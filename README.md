@@ -1,44 +1,82 @@
 # Cybersecurity Portfolio — Prashanth Yadav Pittakala
 
-Professional cybersecurity portfolio website showcasing internship experience, security research, and technical projects.
+Professional cybersecurity portfolio showcasing internship findings, security research, and technical projects.
+
+🔗 **Live:** [prashanthyadavv.github.io/Portfolio](https://prashanthyadavv.github.io/Portfolio/)
+
+---
 
 ## About
 
-Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments. Currently a Cyber Security Intern at UptoSkills and Data Security Head at Data Nexus Technical Club.
+Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments. Currently a Cyber Security Intern at **UptoSkills** and **Data Security Head** at Data Nexus Technical Club. Previously completed a Cybersecurity & Ethical Hacking internship at **ApexPlanet Software Pvt. Ltd.**
 
-## Structure
+---
+
+## Featured Work
+
+### Internship Findings
+- **Brute-Force Vulnerability — Missing Rate Limiting** | High Severity
+  - Authentication endpoint with no rate limiting, allowing unlimited login attempts
+- **Improper Server-Side Input Validation** | Medium Severity
+  - Missing server-side validation on `user_type` field, affecting data integrity
+
+### Technical Projects
+- **CipherVerse** — Security utility tool inspired by CyberChef for data transformation and security testing
+- **Behavior-Based Malware Analyzer** — Sandbox-based behavioral analysis of suspicious files
+
+---
+
+## Site Structure
 
 ```
-index.html              — Homepage
-about.html              — Professional background & skills
-projects.html           — Security projects & research
-activity.html           — Professional timeline
-writeups.html           — Vulnerability reports
-disclosure.html         — Responsible disclosure policy
-contact.html            — Contact information
-
-css/style.css           — Stylesheet
-js/main.js              — Minimal JavaScript (nav toggle)
-
-projects/
-  brute-force-rate-limit.html    — Rate limiting vulnerability report
-  input-validation-issue.html    — Input validation vulnerability report
-
-assets/
-  images/
-  screenshots/
+├── index.html                              — Homepage
+├── about.html                              — Professional background & skills
+├── projects.html                           — Security projects & research
+├── activity.html                           — Professional timeline
+├── writeups.html                           — Vulnerability reports
+├── disclosure.html                         — Responsible disclosure policy
+├── contact.html                            — Contact information
+├── css/
+│   └── style.css                           — Stylesheet
+├── js/
+│   └── main.js                             — Navigation & interactivity
+└── projects/
+    ├── brute-force-rate-limit.html          — Detailed vulnerability report
+    └── input-validation-issue.html          — Detailed vulnerability report
 ```
+
+---
 
 ## Tech Stack
 
-- HTML5 (semantic markup)
-- CSS3 (custom properties, responsive design)
-- Vanilla JavaScript (mobile nav toggle only)
-- Inter font (Google Fonts)
+- **HTML5** — Semantic markup
+- **CSS3** — Custom properties, responsive design, dark theme
+- **Vanilla JavaScript** — Mobile nav toggle, active page highlighting
+- **Inter** — Typography via Google Fonts
 
-## Usage
+---
 
-This is a static website. Open `index.html` in a browser or deploy to any static hosting service (GitHub Pages, Netlify, Vercel, etc.).
+## Local Development
+
+This is a static website. Open `index.html` in a browser or deploy to any static hosting service.
+
+```bash
+# Clone the repo
+git clone https://github.com/prashanthyadavv/Portfolio.git
+
+# Open in browser
+start Portfolio/index.html
+```
+
+---
+
+## Contact
+
+- 📧 [prashanthyadavvv@gmail.com](mailto:prashanthyadavvv@gmail.com)
+- 🐙 [github.com/prashanthyadavv](https://github.com/prashanthyadavv)
+- 💼 [LinkedIn](https://www.linkedin.com/in/prashanth-yadav-pittakala/)
+
+---
 
 ## License
 
