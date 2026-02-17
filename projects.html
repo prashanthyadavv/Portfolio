@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Security projects and research by Prashanth Yadav Pittakala.">
+    <title>Projects — Prashanth Yadav Pittakala</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">Prashanth Yadav Pittakala</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <svg viewBox="0 0 24 24">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="activity.html">Activity</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="disclosure.html">Disclosure</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Security Projects &amp; Research</h1>
+                <p>Technical projects and internship findings from authorized security testing.</p>
+            </div>
+
+            <!-- Technical Projects -->
+            <section class="section">
+                <h2 class="section-title">Technical Projects</h2>
+                <p class="section-subtitle">Currently in progress</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="card-label project">In Progress</span>
+                        <h3>CipherVerse</h3>
+                        <p>Security utility tool inspired by CyberChef, including analyzers for data transformation and
+                            security testing use cases.</p>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label project">In Progress</span>
+                        <h3>Behavior-Based Malware Analyzer</h3>
+                        <p>Project focused on analyzing behavioral patterns of suspicious files through sandbox-based
+                            execution monitoring.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Internship Findings -->
+            <section class="section">
+                <h2 class="section-title">Internship Findings</h2>
+                <p class="section-subtitle">Vulnerabilities identified during authorized manual testing</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <span class="card-label finding">Finding</span>
+                        <h3>Brute-Force Vulnerability — Missing Rate Limiting</h3>
+                        <p>Identified during authorized manual testing. Authentication endpoint allowed unlimited
+                            password attempts without any rate limiting mechanism.</p>
+                        <a href="projects/brute-force-rate-limit.html" class="card-link">View Detailed Report →</a>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label finding">Finding</span>
+                        <h3>Improper Server-Side Input Validation</h3>
+                        <p>Application accepted arbitrary values in user_type field due to lack of server-side
+                            validation, affecting data integrity.</p>
+                        <a href="projects/input-validation-issue.html" class="card-link">View Detailed Report →</a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <span class="footer-text">&copy; 2026 Prashanth Yadav Pittakala</span>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+                <a href="disclosure.html">Disclosure</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

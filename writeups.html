@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Security writeups and technical documentation by Prashanth Yadav Pittakala.">
+    <title>Writeups — Prashanth Yadav Pittakala</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-brand">Prashanth Yadav Pittakala</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <svg viewBox="0 0 24 24">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="activity.html">Activity</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="disclosure.html">Disclosure</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Writeups</h1>
+                <p>Structured vulnerability reports and technical documentation from authorized testing.</p>
+            </div>
+
+            <!-- Writeups List -->
+            <section class="section">
+                <div class="card-grid">
+
+                    <div class="card">
+                        <span class="card-label finding">Vulnerability Report</span>
+                        <h3>Brute-Force Vulnerability — Missing Rate Limiting</h3>
+                        <p>Authentication endpoint with no rate limiting, allowing unlimited login attempts. Identified
+                            during authorized internship testing.</p>
+                        <div style="margin-bottom: 0.75rem;">
+                            <span class="severity high">High Severity</span>
+                        </div>
+                        <a href="projects/brute-force-rate-limit.html" class="card-link">Read Full Report →</a>
+                    </div>
+
+                    <div class="card">
+                        <span class="card-label finding">Vulnerability Report</span>
+                        <h3>Improper Server-Side Input Validation</h3>
+                        <p>Missing server-side validation on user_type field accepted arbitrary values through
+                            direct API requests, affecting data integrity.</p>
+                        <div style="margin-bottom: 0.75rem;">
+                            <span class="severity medium">Medium Severity</span>
+                        </div>
+                        <a href="projects/input-validation-issue.html" class="card-link">Read Full Report →</a>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <span class="footer-text">&copy; 2026 Prashanth Yadav Pittakala</span>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+                <a href="disclosure.html">Disclosure</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

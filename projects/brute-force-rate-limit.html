@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brute-force vulnerability due to missing rate limiting — detailed report.">
+    <title>Brute-Force Rate Limiting Issue — Prashanth Yadav Pittakala</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="nav-brand">Prashanth Yadav Pittakala</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <svg viewBox="0 0 24 24">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../activity.html">Activity</a></li>
+                <li><a href="../writeups.html">Writeups</a></li>
+                <li><a href="../disclosure.html">Disclosure</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <a href="../projects.html" class="back-link">← Back to Projects</a>
+
+            <!-- Detail Header -->
+            <div class="detail-header">
+                <h1>Brute-Force Vulnerability — Missing Rate Limiting</h1>
+                <div class="detail-meta">
+                    <span><span class="severity high">High Severity</span></span>
+                    <span>Category: Authentication</span>
+                    <span>Context: Authorized Internship Testing</span>
+                </div>
+            </div>
+
+            <!-- Overview -->
+            <section class="detail-section">
+                <h2>Overview</h2>
+                <p>
+                    During authorized manual web application testing as part of the UptoSkills cybersecurity internship,
+                    a brute-force vulnerability was identified in the application's login mechanism. The authentication
+                    endpoint did not enforce any rate limiting, allowing an attacker to submit an unlimited number of
+                    login attempts without restriction.
+                </p>
+            </section>
+
+            <!-- Environment -->
+            <section class="detail-section">
+                <h2>Environment Tested</h2>
+                <p>
+                    Testing was conducted on an authorized test environment provided as part of a structured
+                    cybersecurity
+                    internship program. All testing was performed within the defined scope and with explicit
+                    authorization.
+                </p>
+                <ul>
+                    <li>Testing Type: Manual Web Application Security Testing</li>
+                    <li>Authorization: Internship program scope (authorized)</li>
+                    <li>Tool Used: Burp Suite (Intruder module)</li>
+                </ul>
+            </section>
+
+            <!-- Technical Description -->
+            <section class="detail-section">
+                <h2>Technical Description</h2>
+                <p>
+                    The application's login endpoint accepted authentication requests without enforcing any mechanism
+                    to limit the number of attempts from a single source. There was no account lockout policy, no
+                    CAPTCHA challenge, and no progressive delay between failed attempts.
+                </p>
+                <p>
+                    This means an attacker could automate credential guessing attacks against user accounts using
+                    common password lists or credential stuffing techniques. The absence of rate limiting significantly
+                    reduces the time and resources required for a successful brute-force attack.
+                </p>
+            </section>
+
+            <!-- Steps to Reproduce -->
+            <section class="detail-section">
+                <h2>Steps to Reproduce</h2>
+                <ol>
+                    <li>Navigate to the application's login page</li>
+                    <li>Enter a valid username and an incorrect password</li>
+                    <li>Capture the login request using Burp Suite Proxy</li>
+                    <li>Send the captured request to Burp Suite Intruder</li>
+                    <li>Configure a payload list with common passwords</li>
+                    <li>Execute the attack and observe that all attempts are processed without any blocking or
+                        throttling</li>
+                    <li>Confirm that no account lockout, CAPTCHA, or rate limiting is triggered regardless of the number
+                        of failed attempts</li>
+                </ol>
+            </section>
+
+            <!-- Impact -->
+            <section class="detail-section">
+                <h2>Impact</h2>
+                <p>
+                    The absence of rate limiting on the authentication endpoint exposes the application to the following
+                    risks:
+                </p>
+                <ul>
+                    <li>Unauthorized account access through automated password guessing</li>
+                    <li>Credential stuffing attacks using leaked credential databases</li>
+                    <li>Potential for account takeover, especially for users with weak passwords</li>
+                    <li>Denial of service through high-volume authentication requests</li>
+                </ul>
+            </section>
+
+            <!-- Remediation -->
+            <section class="detail-section">
+                <h2>Remediation</h2>
+                <p>The following measures are recommended to address this vulnerability:</p>
+                <ul>
+                    <li>Implement rate limiting on the login endpoint (e.g., maximum 5 attempts per minute per
+                        IP/account)</li>
+                    <li>Introduce account lockout or progressive delay after consecutive failed login attempts</li>
+                    <li>Implement CAPTCHA verification after a threshold of failed attempts</li>
+                    <li>Log and monitor failed authentication attempts for anomaly detection</li>
+                    <li>Consider implementing multi-factor authentication (MFA) as an additional layer of defense</li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <span class="footer-text">&copy; 2026 Prashanth Yadav Pittakala</span>
+            <div class="footer-links">
+                <a href="../contact.html">Contact</a>
+                <a href="../disclosure.html">Disclosure</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

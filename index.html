@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Prashanth Yadav Pittakala — Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments.">
+  <title>Prashanth Yadav Pittakala — Cybersecurity Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">Prashanth Yadav Pittakala</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="activity.html">Activity</a></li>
+        <li><a href="writeups.html">Writeups</a></li>
+        <li><a href="disclosure.html">Disclosure</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Prashanth Yadav Pittakala</h1>
+        <p class="subtitle">Cyber Security Intern at UptoSkills | Data Security Head — Data Nexus</p>
+        <p class="description">
+          Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments.
+          Previously completed a Cybersecurity &amp; Ethical Hacking internship at ApexPlanet Software Pvt. Ltd.
+          Currently working on security-focused tools and structured vulnerability documentation.
+        </p>
+        <div class="hero-actions">
+          <a href="projects.html" class="btn btn-primary">View Projects</a>
+          <a href="about.html" class="btn btn-outline">About Me</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Technical Work -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Recent Technical Work</h2>
+        <p class="section-subtitle">Internship findings and ongoing projects</p>
+
+        <div class="card-grid">
+          <!-- Internship Findings -->
+          <div class="card">
+            <span class="card-label finding">Internship Finding</span>
+            <h3>Brute-Force Vulnerability — Missing Rate Limiting</h3>
+            <p>Identified during authorized testing. Authentication endpoint allowed unlimited password attempts without
+              any rate limiting mechanism.</p>
+            <a href="projects/brute-force-rate-limit.html" class="card-link">View Details →</a>
+          </div>
+
+          <div class="card">
+            <span class="card-label finding">Internship Finding</span>
+            <h3>Improper Server-Side Input Validation</h3>
+            <p>Application accepted arbitrary values in user_type field due to lack of proper server-side validation,
+              affecting data integrity.</p>
+            <a href="projects/input-validation-issue.html" class="card-link">View Details →</a>
+          </div>
+
+          <!-- Technical Projects -->
+          <div class="card">
+            <span class="card-label project">In Progress</span>
+            <h3>CipherVerse</h3>
+            <p>Security utility tool inspired by CyberChef, including analyzers for data transformation and security
+              testing use cases.</p>
+          </div>
+
+          <div class="card">
+            <span class="card-label project">In Progress</span>
+            <h3>Behavior-Based Malware Analyzer</h3>
+            <p>Project focused on analyzing behavioral patterns of suspicious files through sandbox-based execution
+              monitoring.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <span class="footer-text">&copy; 2026 Prashanth Yadav Pittakala</span>
+      <div class="footer-links">
+        <a href="contact.html">Contact</a>
+        <a href="disclosure.html">Disclosure</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

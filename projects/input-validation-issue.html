@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Improper server-side input validation issue — detailed report.">
+    <title>Input Validation Issue — Prashanth Yadav Pittakala</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="nav-brand">Prashanth Yadav Pittakala</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <svg viewBox="0 0 24 24">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../activity.html">Activity</a></li>
+                <li><a href="../writeups.html">Writeups</a></li>
+                <li><a href="../disclosure.html">Disclosure</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <a href="../projects.html" class="back-link">← Back to Projects</a>
+
+            <!-- Detail Header -->
+            <div class="detail-header">
+                <h1>Improper Server-Side Input Validation</h1>
+                <div class="detail-meta">
+                    <span><span class="severity medium">Medium Severity</span></span>
+                    <span>Category: Input Validation</span>
+                    <span>Context: Authorized Internship Testing</span>
+                </div>
+            </div>
+
+            <!-- Overview -->
+            <section class="detail-section">
+                <h2>Overview</h2>
+                <p>
+                    During authorized manual testing as part of the UptoSkills cybersecurity internship, an improper
+                    input validation vulnerability was identified. The application relied solely on client-side
+                    validation for the <code>user_type</code> field, while the server accepted any arbitrary value
+                    submitted directly to the API endpoint.
+                </p>
+            </section>
+
+            <!-- Environment -->
+            <section class="detail-section">
+                <h2>Environment Tested</h2>
+                <p>
+                    Testing was conducted on an authorized test environment provided as part of a structured
+                    cybersecurity
+                    internship program. All testing was performed within the defined scope and with explicit
+                    authorization.
+                </p>
+                <ul>
+                    <li>Testing Type: Manual Web Application Security Testing</li>
+                    <li>Authorization: Internship program scope (authorized)</li>
+                    <li>Tool Used: Burp Suite (Proxy, Repeater)</li>
+                </ul>
+            </section>
+
+            <!-- Technical Description -->
+            <section class="detail-section">
+                <h2>Technical Description</h2>
+                <p>
+                    The application's registration or profile update endpoint included a <code>user_type</code> field
+                    that determined the user's role within the system. While the front-end interface restricted this
+                    field to predefined options (e.g., "student", "user"), the server-side logic did not enforce
+                    these constraints.
+                </p>
+                <p>
+                    By intercepting the request and modifying the <code>user_type</code> parameter to an arbitrary
+                    value (such as "admin"), it was possible to assign unintended roles to the account. This indicates
+                    a lack of server-side validation and improper trust in client-side controls.
+                </p>
+            </section>
+
+            <!-- Steps to Reproduce -->
+            <section class="detail-section">
+                <h2>Steps to Reproduce</h2>
+                <ol>
+                    <li>Navigate to the registration or profile update form</li>
+                    <li>Fill in the required fields and select a standard user type from the dropdown</li>
+                    <li>Capture the outbound request using Burp Suite Proxy</li>
+                    <li>Modify the <code>user_type</code> parameter value to an arbitrary or elevated role</li>
+                    <li>Forward the modified request to the server</li>
+                    <li>Observe that the server accepts the modified value without validation and assigns the arbitrary
+                        role</li>
+                </ol>
+            </section>
+
+            <!-- Impact -->
+            <section class="detail-section">
+                <h2>Impact</h2>
+                <p>
+                    The lack of server-side validation on the <code>user_type</code> field can lead to:
+                </p>
+                <ul>
+                    <li>Privilege escalation through unauthorized role assignment</li>
+                    <li>Access to restricted functionality or administrative features</li>
+                    <li>Potential data exposure if elevated roles grant access to sensitive information</li>
+                    <li>Bypass of intended access control mechanisms</li>
+                </ul>
+            </section>
+
+            <!-- Remediation -->
+            <section class="detail-section">
+                <h2>Remediation</h2>
+                <p>The following measures are recommended to address this vulnerability:</p>
+                <ul>
+                    <li>Implement strict server-side validation for the <code>user_type</code> field against an
+                        allowlist of permitted values</li>
+                    <li>Reject any requests containing invalid or unexpected <code>user_type</code> values with an
+                        appropriate error response</li>
+                    <li>Do not rely on client-side validation as a security control; always enforce server-side checks
+                    </li>
+                    <li>Implement role-based access control (RBAC) that is enforced at the server level</li>
+                    <li>Log and monitor requests that attempt to submit unauthorized role values for security alerting
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <span class="footer-text">&copy; 2026 Prashanth Yadav Pittakala</span>
+            <div class="footer-links">
+                <a href="../contact.html">Contact</a>
+                <a href="../disclosure.html">Disclosure</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
