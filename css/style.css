@@ -26,6 +26,9 @@
   --radius: 8px;
   --transition: 0.2s ease;
   --max-width: 1100px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
 html {
@@ -56,6 +59,40 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+
+/* ---------- Skip Link (Accessibility) ---------- */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: var(--accent);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius) 0;
+  z-index: 1000;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
+}
+
+/* ---------- Focus Styles ---------- */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ---------- Typography ---------- */
@@ -703,6 +740,72 @@ code {
   color: var(--accent);
 }
 
+/* ---------- Back to Top Button ---------- */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all var(--transition);
+  z-index: 99;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 20px -5px rgb(0 0 0 / 0.2);
+}
+
+.back-to-top svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Smooth Animations ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .nav-toggle {
@@ -720,10 +823,14 @@ code {
     border-bottom: 1px solid var(--border);
     padding: 0.75rem 1.5rem;
     gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
   }
 
   .nav-links.open {
     display: flex;
+    max-height: 500px;
   }
 
   .nav-links a {
@@ -776,5 +883,37 @@ code {
   .hero-actions {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+/* ---------- Print Styles ---------- */
+@media print {
+  .navbar,
+  .nav-toggle,
+  .footer,
+  .back-to-top,
+  .skip-link,
+  .hero-actions {
+    display: none !important;
+  }
+
+  body {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .hero,
+  .section {
+    page-break-inside: avoid;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #000;
+  }
+
+  .card {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
   }
 }
