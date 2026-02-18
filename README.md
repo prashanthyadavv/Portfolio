@@ -1,14 +1,19 @@
-# Cybersecurity Portfolio — Prashanth Yadav Pittakala
+# Cybrito — Security Research & Development
+
+**Founded by Prashanth Yadav Pittakala**
 
 Professional cybersecurity portfolio showcasing internship findings, security research, and technical projects.
 
 🔗 **Live:** [prashanthyadavv.github.io/Portfolio](https://prashanthyadavv.github.io/Portfolio/)
+🌐 **Domain:** [cybrito.tech](https://cybrito.tech)
 
 ---
 
 ## About
 
-Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments. Currently a Cyber Security Intern at **UptoSkills** and **Data Security Head** at Data Nexus Technical Club. Previously completed a Cybersecurity & Ethical Hacking internship at **ApexPlanet Software Pvt. Ltd.**
+**Cybrito** is a personal cybersecurity research and development initiative founded by Prashanth Yadav Pittakala — a cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments.
+
+Currently a Cyber Security Intern at **UptoSkills**. Previously completed a Cybersecurity & Ethical Hacking internship at **ApexPlanet Software Pvt. Ltd.**
 
 ---
 
@@ -58,13 +63,8 @@ Cybersecurity intern with hands-on experience in manual web application testing 
 
 ## Local Development
 
-This is a static website. Open `index.html` in a browser or deploy to any static hosting service.
-
 ```bash
-# Clone the repo
 git clone https://github.com/prashanthyadavv/Portfolio.git
-
-# Open in browser
 start Portfolio/index.html
 ```
 
@@ -80,4 +80,4 @@ start Portfolio/index.html
 
 ## License
 
-All content is the intellectual property of Prashanth Yadav Pittakala.
+© 2026 Cybrito — All content is the intellectual property of Prashanth Yadav Pittakala.
