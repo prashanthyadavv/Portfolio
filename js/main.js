@@ -52,7 +52,7 @@
     if (backToTopButton) {
         // Show/hide button based on scroll position
         window.addEventListener('scroll', function () {
-            if (window.pageYOffset > 300) {
+            if (window.scrollY > 300) {
                 backToTopButton.classList.add('visible');
             } else {
                 backToTopButton.classList.remove('visible');

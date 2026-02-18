@@ -805,6 +805,10 @@ code {
 .card:nth-child(2) { animation-delay: 0.2s; }
 .card:nth-child(3) { animation-delay: 0.3s; }
 .card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+.card:nth-child(7) { animation-delay: 0.7s; }
+.card:nth-child(8) { animation-delay: 0.8s; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
@@ -813,7 +817,6 @@ code {
   }
 
   .nav-links {
-    display: none;
     position: absolute;
     top: 64px;
     left: 0;
@@ -831,6 +834,16 @@ code {
   .nav-links.open {
     display: flex;
     max-height: 500px;
+  }
+
+  @supports not (transition: max-height 0.3s) {
+    .nav-links {
+      display: none;
+    }
+    
+    .nav-links.open {
+      display: flex;
+    }
   }
 
   .nav-links a {
