@@ -14,19 +14,12 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="nav-brand">Cybrito</a>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <svg viewBox="0 0 24 24">
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-            </button>
+            <a href="index.html" class="nav-brand">CYBRITO</a>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#home">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
-                <li><a href="activity.html">Activity</a></li>
+                <li><a href="activity.html" class="active">Activity</a></li>
                 <li><a href="writeups.html">Writeups</a></li>
                 <li><a href="disclosure.html">Disclosure</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -136,6 +129,41 @@
     </footer>
 
     <script src="js/main.js"></script>
+
+    <!-- Timeline interactivity -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const timeline = document.querySelector('.timeline');
+
+      /* Draw the gradient line when timeline enters viewport */
+      const lineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('line-drawn');
+            lineObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.05 });
+
+      if (timeline) lineObserver.observe(timeline);
+
+      /* Staggered entrance for years & items */
+      const items = document.querySelectorAll('.timeline-year, .timeline-item');
+      const itemObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            itemObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      items.forEach((el, i) => {
+        el.style.transitionDelay = (i * 0.08) + 's';
+        itemObserver.observe(el);
+      });
+    });
+    </script>
 </body>
 
 </html>

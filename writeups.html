@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Security writeups and technical documentation by Cybrito — Prashanth Yadav Pittakala.">
-    <meta name="keywords" content="vulnerability writeups, security reports, penetration testing, web application security">
+    <meta name="keywords"
+        content="vulnerability writeups, security reports, penetration testing, web application security">
     <meta name="author" content="Prashanth Yadav Pittakala">
     <title>Writeups — Cybrito | Prashanth Yadav Pittakala</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -21,20 +22,13 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="nav-brand">Cybrito</a>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <svg viewBox="0 0 24 24">
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-            </button>
+            <a href="index.html" class="nav-brand">CYBRITO</a>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#home">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="activity.html">Activity</a></li>
-                <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="writeups.html" class="active">Writeups</a></li>
                 <li><a href="disclosure.html">Disclosure</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -70,7 +64,7 @@
                         <h3>Improper Server-Side Input Validation</h3>
                         <p>Missing server-side validation on user_type field accepted arbitrary values through
                             direct API requests, affecting data integrity.</p>
-                        <div style="margin-bottom: 0.75rem;">
+                        <div style="margin-bottom: 0.2rem;">
                             <span class="severity medium">Medium Severity</span>
                         </div>
                         <a href="projects/input-validation-issue.html" class="card-link">Read Full Report →</a>
@@ -96,7 +90,7 @@
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">
         <svg viewBox="0 0 24 24">
-            <path d="M12 19V5M5 12l7-7 7 7"/>
+            <path d="M12 19V5M5 12l7-7 7 7" />
         </svg>
     </button>
 

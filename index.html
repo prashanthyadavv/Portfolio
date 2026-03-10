@@ -6,21 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
     content="Cybrito — Security research and development by Prashanth Yadav Pittakala. Hands-on experience in manual web application testing and vulnerability assessments.">
-  <meta name="keywords" content="cybersecurity, security research, web application testing, vulnerability assessment, ethical hacking, Cybrito">
+  <meta name="keywords"
+    content="cybersecurity, security research, web application testing, vulnerability assessment, ethical hacking, Cybrito">
   <meta name="author" content="Prashanth Yadav Pittakala">
-  
+
   <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cybrito.tech/">
   <meta property="og:title" content="Cybrito — Security Research by Prashanth Yadav Pittakala">
-  <meta property="og:description" content="Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments.">
+  <meta property="og:description"
+    content="Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments.">
   <meta property="og:image" content="https://cybrito.tech/favicon.svg">
-  
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Cybrito — Security Research">
   <meta name="twitter:description" content="Cybersecurity research and development by Prashanth Yadav Pittakala">
-  
+
   <title>Cybrito — Security Research by Prashanth Yadav Pittakala</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="css/style.css">
@@ -34,16 +36,9 @@
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="nav-brand">Cybrito</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <svg viewBox="0 0 24 24">
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
+      <a href="index.html" class="nav-brand">CYBRITO</a>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#home" class="active">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="activity.html">Activity</a></li>
@@ -56,82 +51,197 @@
 
   <main id="main-content">
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="container">
-        <h1>Prashanth Yadav Pittakala</h1>
-        <p class="subtitle">Founder — Cybrito | Cyber Security Intern at UptoSkills</p>
-        <p class="description">
-          Cybersecurity intern with hands-on experience in manual web application testing and vulnerability assessments.
-          Founder of Cybrito — a security research and development initiative focused on practical vulnerability
-          analysis and tool building.
-        </p>
-        <div class="hero-actions">
-          <a href="projects.html" class="btn btn-primary">View Projects</a>
-          <a href="about.html" class="btn btn-outline">About Me</a>
+        <div class="hero-content">
+          <h1>Prashanth Yadav<span>Pittakala</span></h1>
+          <p class="subtitle">Security Researcher &amp; Security Intern @ UptoSkills</p>
+          <p class="description">
+            Passionate about uncovering vulnerabilities and building secure systems.
+            Currently focused on advanced penetration testing and automated malware analysis.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View Findings</a>
+            <a href="contact.html" class="btn btn-outline">Secure Contact</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Recent Technical Work -->
-    <section class="section">
+    <!-- About Section -->
+    <section id="about">
       <div class="container">
-        <h2 class="section-title">Recent Technical Work</h2>
-        <p class="section-subtitle">Internship findings and ongoing projects</p>
+        <div class="section-header">
+          <h2>About Me</h2>
+        </div>
+        <div class="card">
+          <p>
+            I am a dedicated cybersecurity professional with a strong foundation in manual web application testing
+            and vulnerability assessment. My approach combines rigorous analytical thinking with hands-on technical
+            expertise to secure digital assets and report critical security flaws.
+          </p>
+          <br>
+          <p>
+            Through my work at Cybrito, I aim to contribute to the security community by developing open-source
+            security utilities and publishing technical writeups on real-world vulnerabilities.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <h2>Tools &amp; Expertise</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>Offensive Security</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Burp Suite</span>
+              <span class="skill-tag">Metasploit</span>
+              <span class="skill-tag">Nmap</span>
+              <span class="skill-tag">SQLMap</span>
+              <span class="skill-tag">OWASP ZAP</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h3>Security Analysis</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Wireshark</span>
+              <span class="skill-tag">Cuckoo Sandbox</span>
+              <span class="skill-tag">Linux Forensics</span>
+              <span class="skill-tag">Static Analysis</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h3>Development</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Bash Scripts</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <h2>Technical Work</h2>
+        </div>
         <div class="card-grid">
-          <!-- Internship Findings -->
           <div class="card">
-            <span class="card-label finding">Internship Finding</span>
-            <h3>Brute-Force Vulnerability — Missing Rate Limiting</h3>
-            <p>Identified during authorized testing. Authentication endpoint allowed unlimited password attempts without
-              any rate limiting mechanism.</p>
-            <a href="projects/brute-force-rate-limit.html" class="card-link">View Details →</a>
+            <span class="card-label">Internship Finding</span>
+            <h3>Brute-Force Vulnerability</h3>
+            <p>Authentication endpoint allowed unlimited attempts without rate limiting. Reporting led to high-severity
+              fix.</p>
+            <a href="projects/brute-force-rate-limit.html" class="card-link">Detailed Report →</a>
           </div>
-
           <div class="card">
-            <span class="card-label finding">Internship Finding</span>
-            <h3>Improper Server-Side Input Validation</h3>
-            <p>Application accepted arbitrary values in user_type field due to lack of proper server-side validation,
-              affecting data integrity.</p>
-            <a href="projects/input-validation-issue.html" class="card-link">View Details →</a>
+            <span class="card-label">Internship Finding</span>
+            <h3>Improper Input Validation</h3>
+            <p>Database integrity risk due to missing server-side validation on user-controlled fields.</p>
+            <a href="projects/input-validation-issue.html" class="card-link">Detailed Report →</a>
           </div>
-
-          <!-- Technical Projects -->
           <div class="card">
-            <span class="card-label project">In Progress</span>
+            <span class="card-label">Tool Development</span>
             <h3>CipherVerse</h3>
-            <p>Security utility tool inspired by CyberChef, including analyzers for data transformation and security
-              testing use cases.</p>
+            <p>A multi-functional security utility for data transformation, inspired by CyberChef.</p>
           </div>
-
           <div class="card">
-            <span class="card-label project">In Progress</span>
+            <span class="card-label">Malware Research</span>
             <h3>Behavior-Based Malware Analyzer</h3>
-            <p>Project focused on analyzing behavioral patterns of suspicious files through sandbox-based execution
-              monitoring.</p>
+            <p>Project focused on analyzing behavioral patterns of suspicious files through sandbox-based
+              execution monitoring.</p>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Certifications Section -->
+    <section id="certs">
+      <div class="container">
+        <div class="section-header">
+          <h2>Certifications</h2>
+        </div>
+        <div class="cert-grid">
+          <div class="cert-card" data-cert="images/certs/ethical-hacking-essentials.png" role="button" tabindex="0">
+            <div class="cert-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div class="cert-info">
+              <h3>Ethical Hacking essentials</h3>
+              <p>Issued by EC-Council</p>
+            </div>
+            <span class="cert-view-hint">Click to view →</span>
+          </div>
+          <div class="cert-card" data-cert="images/certs/web-exploit-hunting.jpeg" role="button" tabindex="0">
+            <div class="cert-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div class="cert-info">
+              <h3>Web exploit hunting and bug bounty</h3>
+              <p>Issued by Eduskills academy</p>
+            </div>
+            <span class="cert-view-hint">Click to view →</span>
+          </div>
+          <div class="cert-card" data-cert="images/certs/nptel-ethical-hacking.jpeg" role="button" tabindex="0">
+            <div class="cert-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div class="cert-info">
+              <h3>Ethical Hacking</h3>
+              <p>Issued by NPTEL</p>
+            </div>
+            <span class="cert-view-hint">Click to view →</span>
+          </div>
+          <div class="cert-card" data-cert="images/certs/cybersecurity-apexplanet.jpeg" role="button" tabindex="0">
+            <div class="cert-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div class="cert-info">
+              <h3>Cybersecurity and Ethical Hacking</h3>
+              <p>Issued by ApexPlanet</p>
+            </div>
+            <span class="cert-view-hint">Click to view →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificate Modal -->
+    <div class="cert-modal" id="cert-modal">
+      <div class="cert-modal-overlay"></div>
+      <div class="cert-modal-content">
+        <button class="cert-modal-close" id="cert-modal-close" aria-label="Close certificate">&times;</button>
+        <img src="" alt="Certificate" id="cert-modal-img">
+      </div>
+    </div>
   </main>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <span class="footer-text">&copy; 2026 Cybrito — Founded by Prashanth Yadav Pittakala</span>
+      <span class="footer-text">&copy; 2026 CYBERNEXUS — Founded by Prashanth Yadav Pittakala</span>
       <div class="footer-links">
         <a href="contact.html">Contact</a>
         <a href="disclosure.html">Disclosure</a>
       </div>
     </div>
   </footer>
-
-  <!-- Back to Top Button -->
-  <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-    <svg viewBox="0 0 24 24">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
 
   <script src="js/main.js"></script>
 </body>

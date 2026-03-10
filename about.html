@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="About Cybrito and Prashanth Yadav Pittakala — experience, skills, and leadership in cybersecurity.">
-    <meta name="keywords" content="cybersecurity professional, security skills, web application testing, vulnerability assessment">
+    <meta name="keywords"
+        content="cybersecurity professional, security skills, web application testing, vulnerability assessment">
     <meta name="author" content="Prashanth Yadav Pittakala">
     <title>About — Cybrito | Prashanth Yadav Pittakala</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -21,17 +22,10 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="nav-brand">Cybrito</a>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <svg viewBox="0 0 24 24">
-                    <line x1="3" y1="6" x2="21" y2="6" />
-                    <line x1="3" y1="12" x2="21" y2="12" />
-                    <line x1="3" y1="18" x2="21" y2="18" />
-                </svg>
-            </button>
+            <a href="index.html" class="nav-brand">CYBRITO</a>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="activity.html">Activity</a></li>
                 <li><a href="writeups.html">Writeups</a></li>
@@ -128,6 +122,16 @@
                             <span class="skill-tag">Linux Command Line</span>
                             <span class="skill-tag">Bash Scripting</span>
                             <span class="skill-tag">Python</span>
+                            <span class="skill-tag">C</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">Linux</span>
+                            <span class="skill-tag">Windows</span>
+
                         </div>
                     </div>
 
@@ -158,11 +162,27 @@
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">
         <svg viewBox="0 0 24 24">
-            <path d="M12 19V5M5 12l7-7 7 7"/>
+            <path d="M12 19V5M5 12l7-7 7 7" />
         </svg>
     </button>
 
     <script src="js/main.js"></script>
+
+    <!-- Scroll-triggered entrance -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.skill-group, .experience-item').forEach(el => observer.observe(el));
+    });
+    </script>
 </body>
 
 </html>
