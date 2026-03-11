@@ -151,7 +151,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <span class="footer-text">&copy; 2026 Cybrito — Founded by Prashanth Yadav Pittakala</span>
+            <span class="footer-text">&copy; 2026 Prashanth Yadav Pittakala — Cybrito</span>
             <div class="footer-links">
                 <a href="contact.html">Contact</a>
                 <a href="disclosure.html">Disclosure</a>
@@ -170,18 +170,18 @@
 
     <!-- Scroll-triggered entrance -->
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            observer.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.15 });
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        observer.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.15 });
 
-      document.querySelectorAll('.skill-group, .experience-item').forEach(el => observer.observe(el));
-    });
+            document.querySelectorAll('.skill-group, .experience-item').forEach(el => observer.observe(el));
+        });
     </script>
 </body>
 

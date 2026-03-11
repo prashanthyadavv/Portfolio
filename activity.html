@@ -120,7 +120,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <span class="footer-text">&copy; 2026 Cybrito — Founded by Prashanth Yadav Pittakala</span>
+            <span class="footer-text">&copy; 2026 Prashanth Yadav Pittakala — Cybrito</span>
             <div class="footer-links">
                 <a href="contact.html">Contact</a>
                 <a href="disclosure.html">Disclosure</a>
@@ -132,37 +132,37 @@
 
     <!-- Timeline interactivity -->
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const timeline = document.querySelector('.timeline');
+        document.addEventListener('DOMContentLoaded', () => {
+            const timeline = document.querySelector('.timeline');
 
-      /* Draw the gradient line when timeline enters viewport */
-      const lineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('line-drawn');
-            lineObserver.unobserve(e.target);
-          }
+            /* Draw the gradient line when timeline enters viewport */
+            const lineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('line-drawn');
+                        lineObserver.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.05 });
+
+            if (timeline) lineObserver.observe(timeline);
+
+            /* Staggered entrance for years & items */
+            const items = document.querySelectorAll('.timeline-year, .timeline-item');
+            const itemObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        itemObserver.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            items.forEach((el, i) => {
+                el.style.transitionDelay = (i * 0.08) + 's';
+                itemObserver.observe(el);
+            });
         });
-      }, { threshold: 0.05 });
-
-      if (timeline) lineObserver.observe(timeline);
-
-      /* Staggered entrance for years & items */
-      const items = document.querySelectorAll('.timeline-year, .timeline-item');
-      const itemObserver = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            itemObserver.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      items.forEach((el, i) => {
-        el.style.transitionDelay = (i * 0.08) + 's';
-        itemObserver.observe(el);
-      });
-    });
     </script>
 </body>
 
