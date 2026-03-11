@@ -1,0 +1,20 @@
+{
+  "name": "cybrito-portfolio",
+  "version": "1.0.0",
+  "description": "Cybrito â Security Research by Prashanth Yadav Pittakala",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Static site - no build required'",
+    "lint": "echo 'No linter configured'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.14"
+  },
+  "keywords": [
+    "cybersecurity",
+    "portfolio",
+    "security-research"
+  ],
+  "author": "Prashanth Yadav Pittakala",
+  "license": "MIT"
+}
