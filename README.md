@@ -4,7 +4,6 @@
 
 Professional cybersecurity portfolio showcasing internship findings, security research, and technical projects.
 
-🔗 **Live:** [prashanthyadavv.github.io/Portfolio](https://prashanthyadavv.github.io/Portfolio/)
 🌐 **Domain:** [cybrito.tech](https://cybrito.tech)
 
 ---
@@ -29,28 +28,9 @@ Currently a Cyber Security Intern at **UptoSkills**. Previously completed a Cybe
 - **CipherVerse** — Security utility tool inspired by CyberChef for data transformation and security testing
 - **Behavior-Based Malware Analyzer** — Sandbox-based behavioral analysis of suspicious files
 
----
+### Writeups
+- **The Night My Network Finally Lit Up** — A real-world engineering story about troubleshooting a CCTV system revealing deeper networking concepts.
 
-## Site Structure
-
-```
-├── index.html                              — Homepage
-├── about.html                              — Professional background & skills
-├── projects.html                           — Security projects & research
-├── activity.html                           — Professional timeline
-├── writeups.html                           — Vulnerability reports
-├── disclosure.html                         — Responsible disclosure policy
-├── contact.html                            — Contact information
-├── css/
-│   └── style.css                           — Stylesheet
-├── js/
-│   └── main.js                             — Navigation & interactivity
-└── projects/
-    ├── brute-force-rate-limit.html          — Detailed vulnerability report
-    └── input-validation-issue.html          — Detailed vulnerability report
-```
-
----
 
 ## Tech Stack
 
@@ -61,14 +41,6 @@ Currently a Cyber Security Intern at **UptoSkills**. Previously completed a Cybe
 
 ---
 
-## Local Development
-
-```bash
-git clone https://github.com/prashanthyadavv/Portfolio.git
-start Portfolio/index.html
-```
-
----
 
 ## Contact
 
