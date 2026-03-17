@@ -16,22 +16,6 @@ Currently a Cyber Security Intern at **UptoSkills**. Previously completed a Cybe
 
 ---
 
-## Featured Work
-
-### Internship Findings
-- **Brute-Force Vulnerability — Missing Rate Limiting** | High Severity
-  - Authentication endpoint with no rate limiting, allowing unlimited login attempts
-- **Improper Server-Side Input Validation** | Medium Severity
-  - Missing server-side validation on `user_type` field, affecting data integrity
-
-### Technical Projects
-- **CipherVerse** — Security utility tool inspired by CyberChef for data transformation and security testing
-- **Behavior-Based Malware Analyzer** — Sandbox-based behavioral analysis of suspicious files
-
-### Writeups
-- **The Night My Network Finally Lit Up** — A real-world engineering story about troubleshooting a CCTV system revealing deeper networking concepts.
-
-
 ## Tech Stack
 
 - **HTML5** — Semantic markup
