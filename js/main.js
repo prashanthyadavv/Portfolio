@@ -46,7 +46,7 @@
   }
 
   // --- Reveal on Scroll ---
-  const revealElements = document.querySelectorAll('.card, .skill-group, .cert-card, .section-header');
+  const revealElements = document.querySelectorAll('.card, .skill-group, .cert-card, .section-header, .section-title, .section-subtitle, .experience-item, .contact-item, .disclosure-content');
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -58,16 +58,8 @@
   }, { threshold: 0.15 });
 
   revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
     revealObserver.observe(el);
   });
-
-  // Inject reveal style
-  const style = document.createElement('style');
-  style.innerHTML = '.revealed { opacity: 1 !important; transform: translateY(0) !important; }';
-  document.head.appendChild(style);
 
   // --- Navbar Background on Scroll ---
   const navbar = document.querySelector('.navbar');

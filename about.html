@@ -174,22 +174,6 @@
     </button>
 
     <script src="js/main.js"></script>
-
-    <!-- Scroll-triggered entrance -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) {
-                        e.target.classList.add('visible');
-                        observer.unobserve(e.target);
-                    }
-                });
-            }, { threshold: 0.15 });
-
-            document.querySelectorAll('.skill-group, .experience-item').forEach(el => observer.observe(el));
-        });
-    </script>
 </body>
 
 </html>
