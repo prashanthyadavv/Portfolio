@@ -1,0 +1,63 @@
+{
+  "pageTitle": "About Me",
+  "pageDescription": "Professional background, experience, and technical skills.",
+
+  "summary": [
+    "Cybrito is a personal cybersecurity research and development initiative founded by Prashanth Yadav Pittakala.",
+    "Cybersecurity intern with practical experience in manual testing and vulnerability assessments. Experienced in identifying authentication and input validation weaknesses and documenting structured security reports."
+  ],
+
+  "experience": [
+    {
+      "id": "uptoskills",
+      "company": "UptoSkills",
+      "role": "Cyber Security Intern",
+      "period": "Dec 2025 – Mar 2026",
+      "responsibilities": [
+        "Conducted manual web application testing",
+        "Identified authentication weakness due to missing rate limiting",
+        "Identified improper server-side input validation issue",
+        "Submitted structured vulnerability reports with severity, impact, and remediation steps"
+      ]
+    },
+    {
+      "id": "apexplanet",
+      "company": "ApexPlanet Software Pvt. Ltd",
+      "role": "Cybersecurity & Ethical Hacking Intern",
+      "period": "Sep 2025 – Nov 2025",
+      "responsibilities": [
+        "Virtual internship focused on cybersecurity fundamentals and ethical hacking practices"
+      ]
+    }
+  ],
+
+  "leadership": [
+    {
+      "id": "data-nexus",
+      "organization": "Data Nexus Technical Club",
+      "role": "Data Security Head",
+      "details": "Domains: Data Science, Data Security, Development",
+      "responsibilities": [
+        "Leading Data Security domain",
+        "Guiding members in cybersecurity learning",
+        "Assisting in planning technical events",
+        "Mentoring peers in web security fundamentals"
+      ]
+    }
+  ],
+
+  "skills": [
+    {
+      "category": "Security Tools",
+      "tags": ["Burp Suite (Proxy, Intruder)", "Nmap", "Wireshark", "Metasploit"]
+    },
+    {
+      "category": "Technologies",
+      "tags": ["Linux Command Line", "Bash Scripting", "Python", "C", "Java", "HTML", "CSS", "MySQL", "Git", "GitHub", "Linux", "Windows"]
+    },
+    {
+      "category": "Learning Platforms",
+      "tags": ["TryHackMe", "NPTEL Certifications"]
+    }
+  ]
+}

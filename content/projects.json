@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Security Projects & Research",
+  "pageDescription": "Technical projects and internship findings from authorized security testing.",
+
+  "sections": [
+    {
+      "id": "technical-projects",
+      "title": "Technical Projects",
+      "subtitle": "Currently in progress",
+      "items": [
+        {
+          "id": "cipherverse",
+          "label": "In Progress",
+          "labelType": "project",
+          "title": "CipherVerse",
+          "description": "Security utility tool inspired by CyberChef, including analyzers for data transformation and security testing use cases.",
+          "link": "",
+          "linkText": ""
+        },
+        {
+          "id": "malware-analyzer",
+          "label": "In Progress",
+          "labelType": "project",
+          "title": "Behavior-Based Malware Analyzer",
+          "description": "Project focused on analyzing behavioral patterns of suspicious files through sandbox-based execution monitoring.",
+          "link": "",
+          "linkText": ""
+        }
+      ]
+    },
+    {
+      "id": "internship-findings",
+      "title": "Internship Findings",
+      "subtitle": "Vulnerabilities identified during authorized manual testing",
+      "items": [
+        {
+          "id": "brute-force",
+          "label": "Finding",
+          "labelType": "finding",
+          "title": "Brute-Force Vulnerability — Missing Rate Limiting",
+          "description": "Identified during authorized manual testing. Authentication endpoint allowed unlimited password attempts without any rate limiting mechanism.",
+          "link": "projects/brute-force-rate-limit.html",
+          "linkText": "View Detailed Report →"
+        },
+        {
+          "id": "input-validation",
+          "label": "Finding",
+          "labelType": "finding",
+          "title": "Improper Server-Side Input Validation",
+          "description": "Application accepted arbitrary values in user_type field due to lack of server-side validation, affecting data integrity.",
+          "link": "projects/input-validation-issue.html",
+          "linkText": "View Detailed Report →"
+        }
+      ]
+    }
+  ]
+}

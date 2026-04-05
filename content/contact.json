@@ -1,0 +1,31 @@
+{
+  "pageTitle": "Contact",
+  "pageDescription": "Get in touch through any of the channels below.",
+
+  "links": [
+    {
+      "id": "email",
+      "type": "email",
+      "label": "Email",
+      "value": "prashanthyadavvv@gmail.com",
+      "url": "mailto:prashanthyadavvv@gmail.com",
+      "icon": "email"
+    },
+    {
+      "id": "github",
+      "type": "external",
+      "label": "GitHub",
+      "value": "github.com/prashanthyadavv",
+      "url": "https://github.com/prashanthyadavv",
+      "icon": "github"
+    },
+    {
+      "id": "linkedin",
+      "type": "external",
+      "label": "LinkedIn",
+      "value": "linkedin.com/in/prashanth-yadav-pittakala",
+      "url": "https://www.linkedin.com/in/prashanth-yadav-pittakala/",
+      "icon": "linkedin"
+    }
+  ]
+}

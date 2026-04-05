@@ -43,69 +43,22 @@
     <main id="main-content">
         <div class="container">
 
-            <!-- Page Header -->
+            <!-- Page Header (text updated dynamically from JSON) -->
             <div class="page-header">
                 <h1>Responsible Disclosure</h1>
                 <p>Commitment to ethical security testing and responsible reporting practices.</p>
             </div>
 
-            <!-- Disclosure Content -->
-            <section class="section">
-                <div class="disclosure-content">
-
-                    <h2>Testing Authorization</h2>
-                    <p>
-                        All security testing documented on this portfolio was conducted exclusively on authorized
-                        systems
-                        during structured internship programs. No unauthorized access was attempted at any point.
-                        Testing environments and scope were defined and approved by the respective organizations prior
-                        to any security assessment activities.
-                    </p>
-
-                    <h2>Ethical Commitment</h2>
-                    <p>
-                        I am committed to ethical security practices and responsible vulnerability disclosure. This
-                        includes:
-                    </p>
-                    <ul>
-                        <li>Testing only on systems where explicit authorization has been granted</li>
-                        <li>Reporting vulnerabilities privately to the responsible organization before any public
-                            disclosure</li>
-                        <li>Providing sufficient detail for the organization to reproduce and remediate the issue</li>
-                        <li>Allowing reasonable time for the organization to address the vulnerability</li>
-                        <li>Not exploiting vulnerabilities beyond what is necessary for verification</li>
-                    </ul>
-
-                    <h2>Structured Reporting</h2>
-                    <p>
-                        Vulnerability reports follow a structured format to ensure clarity and actionability.
-                        Each report includes:
-                    </p>
-                    <ul>
-                        <li>Clear description of the vulnerability and affected component</li>
-                        <li>Severity assessment based on potential impact</li>
-                        <li>Steps to reproduce the issue</li>
-                        <li>Analysis of the potential impact and risk</li>
-                        <li>Recommended remediation steps with technical guidance</li>
-                    </ul>
-
-                    <h2>Remediation Guidance</h2>
-                    <p>
-                        All reports include actionable remediation recommendations to assist development teams
-                        in addressing identified vulnerabilities. Recommendations are based on industry best practices
-                        and prioritized by severity and feasibility of implementation.
-                    </p>
-
-                    <h2>Confidentiality</h2>
-                    <p>
-                        All vulnerability documentation on this portfolio has been sanitized to remove any
-                        confidential information, including specific URLs, credentials, internal system details,
-                        and proprietary data. The purpose of these reports is to demonstrate methodology and
-                        technical skills, not to expose sensitive information.
-                    </p>
-
-                </div>
-            </section>
+            <!--
+              ╔═══════════════════════════════════════════════════╗
+              ║  DYNAMIC CONTENT CONTAINER                       ║
+              ║  Content is loaded from: content/disclosure.json ║
+              ║  To edit disclosure policy → edit the JSON file  ║
+              ╚═══════════════════════════════════════════════════╝
+            -->
+            <div id="disclosure-content">
+                <!-- Content rendered dynamically by content-loader.js -->
+            </div>
 
         </div>
     </main>
@@ -129,6 +82,11 @@
     </button>
 
     <script src="js/main.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script>
+        // Load disclosure content from JSON when page is ready
+        document.addEventListener('DOMContentLoaded', renderDisclosurePage);
+    </script>
 </body>
 
 </html>

@@ -57,6 +57,15 @@
   </nav>
 
   <main id="main-content">
+    <!--
+      ╔═══════════════════════════════════════════════════╗
+      ║  ALL HOME PAGE CONTENT IS LOADED DYNAMICALLY     ║
+      ║  from content/home.json                          ║
+      ║  Edit that JSON file to change hero, about,      ║
+      ║  skills, projects, and certifications.            ║
+      ╚═══════════════════════════════════════════════════╝
+    -->
+
     <!-- Hero Section -->
     <section class="hero" id="home">
       <div class="container">
@@ -82,16 +91,7 @@
           <h2>About Me</h2>
         </div>
         <div class="card">
-          <p>
-            I am a dedicated cybersecurity professional with a strong foundation in manual web application testing
-            and vulnerability assessment. My approach combines rigorous analytical thinking with hands-on technical
-            expertise to secure digital assets and report critical security flaws.
-          </p>
-          <br>
-          <p>
-            Through my work at Cybrito, I aim to contribute to the security community by developing open-source
-            security utilities and publishing technical writeups on real-world vulnerabilities.
-          </p>
+          <p>Loading...</p>
         </div>
       </div>
     </section>
@@ -103,34 +103,7 @@
           <h2>Tools &amp; Expertise</h2>
         </div>
         <div class="skills-grid">
-          <div class="skill-group">
-            <h3>Offensive Security</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">Burp Suite</span>
-              <span class="skill-tag">Metasploit</span>
-              <span class="skill-tag">Nmap</span>
-              <span class="skill-tag">SQLMap</span>
-              <span class="skill-tag">OWASP ZAP</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3>Security Analysis</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">Wireshark</span>
-              <span class="skill-tag">Cuckoo Sandbox</span>
-              <span class="skill-tag">Linux Forensics</span>
-              <span class="skill-tag">Static Analysis</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3>Development</h3>
-            <div class="skill-tags">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">Bash Scripts</span>
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">JavaScript</span>
-            </div>
-          </div>
+          <!-- Populated dynamically -->
         </div>
       </div>
     </section>
@@ -142,30 +115,7 @@
           <h2>Technical Work</h2>
         </div>
         <div class="card-grid">
-          <div class="card">
-            <span class="card-label">Internship Finding</span>
-            <h3>Brute-Force Vulnerability</h3>
-            <p>Authentication endpoint allowed unlimited attempts without rate limiting. Reporting led to high-severity
-              fix.</p>
-            <a href="projects/brute-force-rate-limit.html" class="card-link">Detailed Report →</a>
-          </div>
-          <div class="card">
-            <span class="card-label">Internship Finding</span>
-            <h3>Improper Input Validation</h3>
-            <p>Database integrity risk due to missing server-side validation on user-controlled fields.</p>
-            <a href="projects/input-validation-issue.html" class="card-link">Detailed Report →</a>
-          </div>
-          <div class="card">
-            <span class="card-label">Tool Development</span>
-            <h3>CipherVerse</h3>
-            <p>A multi-functional security utility for data transformation, inspired by CyberChef.</p>
-          </div>
-          <div class="card">
-            <span class="card-label">Malware Research</span>
-            <h3>Behavior-Based Malware Analyzer</h3>
-            <p>Project focused on analyzing behavioral patterns of suspicious files through sandbox-based
-              execution monitoring.</p>
-          </div>
+          <!-- Populated dynamically -->
         </div>
       </div>
     </section>
@@ -177,54 +127,7 @@
           <h2>Certifications</h2>
         </div>
         <div class="cert-grid">
-          <div class="cert-card" data-cert="images/certs/ethical-hacking-essentials.png" role="button" tabindex="0">
-            <div class="cert-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </div>
-            <div class="cert-info">
-              <h3>Ethical Hacking essentials</h3>
-              <p>Issued by EC-Council</p>
-            </div>
-            <span class="cert-view-hint">Click to view →</span>
-          </div>
-          <div class="cert-card" data-cert="images/certs/web-exploit-hunting.jpeg" role="button" tabindex="0">
-            <div class="cert-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </div>
-            <div class="cert-info">
-              <h3>Web exploit hunting and bug bounty</h3>
-              <p>Issued by Eduskills academy</p>
-            </div>
-            <span class="cert-view-hint">Click to view →</span>
-          </div>
-          <div class="cert-card" data-cert="images/certs/nptel-ethical-hacking.jpeg" role="button" tabindex="0">
-            <div class="cert-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </div>
-            <div class="cert-info">
-              <h3>Ethical Hacking</h3>
-              <p>Issued by NPTEL</p>
-            </div>
-            <span class="cert-view-hint">Click to view →</span>
-          </div>
-          <div class="cert-card" data-cert="images/certs/cybersecurity-apexplanet.jpeg" role="button" tabindex="0">
-            <div class="cert-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </div>
-            <div class="cert-info">
-              <h3>Cybersecurity and Ethical Hacking</h3>
-              <p>Issued by ApexPlanet</p>
-            </div>
-            <span class="cert-view-hint">Click to view →</span>
-          </div>
+          <!-- Populated dynamically -->
         </div>
       </div>
     </section>
@@ -251,6 +154,11 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/content-loader.js"></script>
+  <script>
+    // Load all home page content from JSON when page is ready
+    document.addEventListener('DOMContentLoaded', renderHomePage);
+  </script>
 </body>
 
 </html>

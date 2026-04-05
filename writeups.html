@@ -45,54 +45,22 @@
     <main id="main-content">
         <div class="container">
 
-            <!-- Page Header -->
+            <!-- Page Header (text updated dynamically from JSON) -->
             <div class="page-header">
                 <h1>Writeups</h1>
                 <p>Structured vulnerability reports and technical documentation from authorized testing.</p>
             </div>
 
-            <!-- Writeups List -->
-            <section class="section">
-                <div class="card-grid">
-
-                    <div class="card">
-                        <span class="card-label finding">Vulnerability Report</span>
-                        <h3>Brute-Force Vulnerability — Missing Rate Limiting</h3>
-                        <p>Authentication endpoint with no rate limiting, allowing unlimited login attempts. Identified
-                            during authorized internship testing.</p>
-                        <div style="margin-bottom: 0.75rem;">
-                            <span class="severity high">High Severity</span>
-                        </div>
-                        <a href="projects/brute-force-rate-limit.html" class="card-link">Read Full Report →</a>
-                    </div>
-
-                    <div class="card">
-                        <span class="card-label finding">Vulnerability Report</span>
-                        <h3>Improper Server-Side Input Validation</h3>
-                        <p>Missing server-side validation on user_type field accepted arbitrary values through
-                            direct API requests, affecting data integrity.</p>
-                        <div style="margin-bottom: 0.2rem;">
-                            <span class="severity medium">Medium Severity</span>
-                        </div>
-                        <a href="projects/input-validation-issue.html" class="card-link">Read Full Report →</a>
-                    </div>
-                    <div class="card">
-                        <h3>The Night My Network Finally Lit Up</h3>
-                        <p class="writeup-date">January 2026</p>
-
-                        <p>
-                            A real-world engineering story about troubleshooting a CCTV system that
-                            revealed deeper networking concepts including PoE power issues,
-                            IP conflicts, CGNAT limitations, IPv6 connectivity, DDNS automation,
-                            and building a small Android tool to solve remote access challenges.
-                        </p>
-
-                        <a href="projects/network-finally-lit-up.html" class="btn">
-                            Read Writeup
-                        </a>
-                    </div>
-                </div>
-            </section>
+            <!--
+              ╔═══════════════════════════════════════════════════╗
+              ║  DYNAMIC CONTENT CONTAINER                       ║
+              ║  Content is loaded from: content/writeups.json   ║
+              ║  To add a writeup → edit the JSON file           ║
+              ╚═══════════════════════════════════════════════════╝
+            -->
+            <div id="writeups-content">
+                <!-- Content rendered dynamically by content-loader.js -->
+            </div>
 
         </div>
     </main>
@@ -116,6 +84,11 @@
     </button>
 
     <script src="js/main.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script>
+        // Load writeups content from JSON when page is ready
+        document.addEventListener('DOMContentLoaded', renderWriteupsPage);
+    </script>
 </body>
 
 </html>

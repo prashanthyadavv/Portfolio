@@ -43,64 +43,22 @@
     <main id="main-content">
         <div class="container">
 
-            <!-- Page Header -->
+            <!-- Page Header (text updated dynamically from JSON) -->
             <div class="page-header">
                 <h1>Contact</h1>
                 <p>Get in touch through any of the channels below.</p>
             </div>
 
-            <!-- Contact Links -->
-            <section class="section">
-                <div class="contact-links">
-
-                    <!-- Email -->
-                    <a href="mailto:prashanthyadavvv@gmail.com" class="contact-item">
-                        <div class="contact-icon">
-                            <svg viewBox="0 0 24 24">
-                                <rect x="2" y="4" width="20" height="16" rx="2" />
-                                <path d="M22 4l-10 8L2 4" />
-                            </svg>
-                        </div>
-                        <div class="contact-info">
-                            <p class="label">Email</p>
-                            <p class="value">prashanthyadavvv@gmail.com</p>
-                        </div>
-                    </a>
-
-                    <!-- GitHub -->
-                    <a href="https://github.com/prashanthyadavv" target="_blank" rel="noopener noreferrer"
-                        class="contact-item">
-                        <div class="contact-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                            </svg>
-                        </div>
-                        <div class="contact-info">
-                            <p class="label">GitHub</p>
-                            <p class="value">github.com/prashanthyadavv</p>
-                        </div>
-                    </a>
-
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/prashanth-yadav-pittakala/" target="_blank"
-                        rel="noopener noreferrer" class="contact-item">
-                        <div class="contact-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                                <rect x="2" y="9" width="4" height="12" />
-                                <circle cx="4" cy="4" r="2" />
-                            </svg>
-                        </div>
-                        <div class="contact-info">
-                            <p class="label">LinkedIn</p>
-                            <p class="value">linkedin.com/in/prashanth-yadav-pittakala</p>
-                        </div>
-                    </a>
-
-                </div>
-            </section>
+            <!--
+              ╔═══════════════════════════════════════════════════╗
+              ║  DYNAMIC CONTENT CONTAINER                       ║
+              ║  Content is loaded from: content/contact.json    ║
+              ║  To add a contact method → edit the JSON file    ║
+              ╚═══════════════════════════════════════════════════╝
+            -->
+            <div id="contact-content">
+                <!-- Content rendered dynamically by content-loader.js -->
+            </div>
 
         </div>
     </main>
@@ -124,6 +82,11 @@
     </button>
 
     <script src="js/main.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script>
+        // Load contact links from JSON when page is ready
+        document.addEventListener('DOMContentLoaded', renderContactPage);
+    </script>
 </body>
 
 </html>

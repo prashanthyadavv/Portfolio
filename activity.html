@@ -38,89 +38,22 @@
     <main>
         <div class="container">
 
-            <!-- Page Header -->
+            <!-- Page Header (text updated dynamically from JSON) -->
             <div class="page-header">
                 <h1>Activity</h1>
                 <p>Professional timeline and milestones.</p>
             </div>
 
-            <!-- Timeline -->
-            <section class="section">
-                <div class="timeline">
-
-                    <!-- 2026 -->
-                    <div class="timeline-year">2026</div>
-
-                    <div class="timeline-item">
-                        <p class="date">Feb 2026 — Present</p>
-                        <p class="event">Cyber Security Intern — UptoSkills (Ongoing)</p>
-                        <p>Manual web application testing and structured vulnerability assessments.
-                            Focus areas: authentication testing, rate-limit analysis, input validation, and formal
-                            reporting.</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="date">Feb 2026</p>
-                        <p class="event">HackSavvy'26 — 24hr Hackathon, MGIT</p>
-                        <p>Developed a behavior-based malware detection framework using isolated VM execution and
-                            telemetry-driven analysis. Implemented execution lineage attribution and rule-based risk
-                            classification pipeline.</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="date">Jan 2026</p>
-                        <p class="event">Published Technical Article (Medium)</p>
-                        <p>Documented real-world CCTV deployment challenges involving PoE debugging, IP conflicts,
-                            CGNAT, IPv6, DDNS, and automation via custom Android tool.</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="date">Jan 2026</p>
-                        <p class="event">Data Security Head — Data Nexus Technical Club</p>
-                        <p>Leading cybersecurity domain; mentoring members and assisting in technical event planning.
-                        </p>
-                    </div>
-
-                    <!-- 2025 -->
-                    <div class="timeline-year">2025</div>
-
-                    <div class="timeline-item">
-                        <p class="date">Dec 2025</p>
-                        <p class="event">Received Internship Offer — UptoSkills</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="date">Nov 2025</p>
-                        <p class="event">Completed Cybersecurity &amp; Ethical Hacking Internship — ApexPlanet</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="date">Sep — Nov 2025</p>
-                        <p class="event">Cybersecurity Intern — ApexPlanet Software Pvt. Ltd</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="date">Sep 2025</p>
-                        <p class="event">Received Internship Offer — ApexPlanet (AICTE Program)</p>
-                    </div>
-
-                    <div class="timeline-item">
-                        <p class="date">Jul — Oct 2025</p>
-                        <p class="event">NPTEL Elite Certification — Ethical Hacking (IIT Kharagpur)</p>
-                    </div>
-
-                    <!-- Ongoing -->
-                    <div class="timeline-year">Ongoing</div>
-
-                    <div class="timeline-item">
-                        <p class="date">Continuous</p>
-                        <p class="event">Continuous Technical Development</p>
-                        <p>Active learning through TryHackMe practical labs and independent security tool development.
-                        </p>
-                    </div>
-
-                </div>
-            </section>
+            <!--
+              ╔═══════════════════════════════════════════════════╗
+              ║  DYNAMIC CONTENT CONTAINER                       ║
+              ║  Content is loaded from: content/activity.json   ║
+              ║  To add an activity → edit the JSON file         ║
+              ╚═══════════════════════════════════════════════════╝
+            -->
+            <div id="activity-content">
+                <!-- Content rendered dynamically by content-loader.js -->
+            </div>
 
         </div>
     </main>
@@ -137,40 +70,10 @@
     </footer>
 
     <script src="js/main.js"></script>
-
-    <!-- Timeline interactivity -->
+    <script src="js/content-loader.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const timeline = document.querySelector('.timeline');
-
-            /* Draw the gradient line when timeline enters viewport */
-            const lineObserver = new IntersectionObserver((entries) => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) {
-                        e.target.classList.add('line-drawn');
-                        lineObserver.unobserve(e.target);
-                    }
-                });
-            }, { threshold: 0.05 });
-
-            if (timeline) lineObserver.observe(timeline);
-
-            /* Staggered entrance for years & items */
-            const items = document.querySelectorAll('.timeline-year, .timeline-item');
-            const itemObserver = new IntersectionObserver((entries) => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) {
-                        e.target.classList.add('visible');
-                        itemObserver.unobserve(e.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            items.forEach((el, i) => {
-                el.style.transitionDelay = (i * 0.08) + 's';
-                itemObserver.observe(el);
-            });
-        });
+        // Load activity timeline from JSON when page is ready
+        document.addEventListener('DOMContentLoaded', renderActivityPage);
     </script>
 </body>
 

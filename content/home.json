@@ -1,0 +1,94 @@
+{
+  "hero": {
+    "firstName": "Prashanth Yadav",
+    "lastName": "Pittakala",
+    "subtitle": "Security Researcher & Security Intern @ UptoSkills",
+    "description": "Passionate about uncovering vulnerabilities and building secure systems. Currently focused on advanced penetration testing and automated malware analysis.",
+    "ctaPrimary": { "text": "View Findings", "link": "#projects" },
+    "ctaSecondary": { "text": "Secure Contact", "link": "contact.html" }
+  },
+
+  "about": {
+    "paragraphs": [
+      "I am a dedicated cybersecurity professional with a strong foundation in manual web application testing and vulnerability assessment. My approach combines rigorous analytical thinking with hands-on technical expertise to secure digital assets and report critical security flaws.",
+      "Through my work at Cybrito, I aim to contribute to the security community by developing open-source security utilities and publishing technical writeups on real-world vulnerabilities."
+    ]
+  },
+
+  "skills": [
+    {
+      "category": "Offensive Security",
+      "tags": ["Burp Suite", "Metasploit", "Nmap", "SQLMap", "OWASP ZAP"]
+    },
+    {
+      "category": "Security Analysis",
+      "tags": ["Wireshark", "Cuckoo Sandbox", "Linux Forensics", "Static Analysis"]
+    },
+    {
+      "category": "Development",
+      "tags": ["Python", "Bash Scripts", "Node.js", "JavaScript"]
+    }
+  ],
+
+  "featuredProjects": [
+    {
+      "id": "brute-force-home",
+      "label": "Internship Finding",
+      "title": "Brute-Force Vulnerability",
+      "description": "Authentication endpoint allowed unlimited attempts without rate limiting. Reporting led to high-severity fix.",
+      "link": "projects/brute-force-rate-limit.html",
+      "linkText": "Detailed Report →"
+    },
+    {
+      "id": "input-validation-home",
+      "label": "Internship Finding",
+      "title": "Improper Input Validation",
+      "description": "Database integrity risk due to missing server-side validation on user-controlled fields.",
+      "link": "projects/input-validation-issue.html",
+      "linkText": "Detailed Report →"
+    },
+    {
+      "id": "cipherverse-home",
+      "label": "Tool Development",
+      "title": "CipherVerse",
+      "description": "A multi-functional security utility for data transformation, inspired by CyberChef.",
+      "link": "",
+      "linkText": ""
+    },
+    {
+      "id": "malware-home",
+      "label": "Malware Research",
+      "title": "Behavior-Based Malware Analyzer",
+      "description": "Project focused on analyzing behavioral patterns of suspicious files through sandbox-based execution monitoring.",
+      "link": "",
+      "linkText": ""
+    }
+  ],
+
+  "certifications": [
+    {
+      "id": "ethical-hacking-essentials",
+      "title": "Ethical Hacking essentials",
+      "issuer": "Issued by EC-Council",
+      "image": "images/certs/ethical-hacking-essentials.png"
+    },
+    {
+      "id": "web-exploit-hunting",
+      "title": "Web exploit hunting and bug bounty",
+      "issuer": "Issued by Eduskills academy",
+      "image": "images/certs/web-exploit-hunting.jpeg"
+    },
+    {
+      "id": "nptel-ethical-hacking",
+      "title": "Ethical Hacking",
+      "issuer": "Issued by NPTEL",
+      "image": "images/certs/nptel-ethical-hacking.jpeg"
+    },
+    {
+      "id": "cybersecurity-apexplanet",
+      "title": "Cybersecurity and Ethical Hacking",
+      "issuer": "Issued by ApexPlanet",
+      "image": "images/certs/cybersecurity-apexplanet.jpeg"
+    }
+  ]
+}

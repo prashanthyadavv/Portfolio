@@ -1,0 +1,49 @@
+{
+  "pageTitle": "Responsible Disclosure",
+  "pageDescription": "Commitment to ethical security testing and responsible reporting practices.",
+
+  "sections": [
+    {
+      "id": "testing-authorization",
+      "title": "Testing Authorization",
+      "content": "All security testing documented on this portfolio was conducted exclusively on authorized systems during structured internship programs. No unauthorized access was attempted at any point. Testing environments and scope were defined and approved by the respective organizations prior to any security assessment activities.",
+      "listItems": []
+    },
+    {
+      "id": "ethical-commitment",
+      "title": "Ethical Commitment",
+      "content": "I am committed to ethical security practices and responsible vulnerability disclosure. This includes:",
+      "listItems": [
+        "Testing only on systems where explicit authorization has been granted",
+        "Reporting vulnerabilities privately to the responsible organization before any public disclosure",
+        "Providing sufficient detail for the organization to reproduce and remediate the issue",
+        "Allowing reasonable time for the organization to address the vulnerability",
+        "Not exploiting vulnerabilities beyond what is necessary for verification"
+      ]
+    },
+    {
+      "id": "structured-reporting",
+      "title": "Structured Reporting",
+      "content": "Vulnerability reports follow a structured format to ensure clarity and actionability. Each report includes:",
+      "listItems": [
+        "Clear description of the vulnerability and affected component",
+        "Severity assessment based on potential impact",
+        "Steps to reproduce the issue",
+        "Analysis of the potential impact and risk",
+        "Recommended remediation steps with technical guidance"
+      ]
+    },
+    {
+      "id": "remediation-guidance",
+      "title": "Remediation Guidance",
+      "content": "All reports include actionable remediation recommendations to assist development teams in addressing identified vulnerabilities. Recommendations are based on industry best practices and prioritized by severity and feasibility of implementation.",
+      "listItems": []
+    },
+    {
+      "id": "confidentiality",
+      "title": "Confidentiality",
+      "content": "All vulnerability documentation on this portfolio has been sanitized to remove any confidential information, including specific URLs, credentials, internal system details, and proprietary data. The purpose of these reports is to demonstrate methodology and technical skills, not to expose sensitive information.",
+      "listItems": []
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "pageTitle": "Writeups",
+  "pageDescription": "Structured vulnerability reports and technical documentation from authorized testing.",
+
+  "items": [
+    {
+      "id": "brute-force-writeup",
+      "label": "Vulnerability Report",
+      "labelType": "finding",
+      "title": "Brute-Force Vulnerability — Missing Rate Limiting",
+      "description": "Authentication endpoint with no rate limiting, allowing unlimited login attempts. Identified during authorized internship testing.",
+      "severity": "High",
+      "severityClass": "high",
+      "link": "projects/brute-force-rate-limit.html",
+      "linkText": "Read Full Report →",
+      "date": ""
+    },
+    {
+      "id": "input-validation-writeup",
+      "label": "Vulnerability Report",
+      "labelType": "finding",
+      "title": "Improper Server-Side Input Validation",
+      "description": "Missing server-side validation on user_type field accepted arbitrary values through direct API requests, affecting data integrity.",
+      "severity": "Medium",
+      "severityClass": "medium",
+      "link": "projects/input-validation-issue.html",
+      "linkText": "Read Full Report →",
+      "date": ""
+    },
+    {
+      "id": "network-writeup",
+      "label": "",
+      "labelType": "",
+      "title": "The Night My Network Finally Lit Up",
+      "description": "A real-world engineering story about troubleshooting a CCTV system that revealed deeper networking concepts including PoE power issues, IP conflicts, CGNAT limitations, IPv6 connectivity, DDNS automation, and building a small Android tool to solve remote access challenges.",
+      "severity": "",
+      "severityClass": "",
+      "link": "projects/network-finally-lit-up.html",
+      "linkText": "Read Writeup",
+      "date": "January 2026"
+    }
+  ]
+}

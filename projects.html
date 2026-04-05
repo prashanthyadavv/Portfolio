@@ -43,57 +43,22 @@
     <main id="main-content">
         <div class="container">
 
-            <!-- Page Header -->
+            <!-- Page Header (text updated dynamically from JSON) -->
             <div class="page-header">
                 <h1>Security Projects &amp; Research</h1>
                 <p>Technical projects and internship findings from authorized security testing.</p>
             </div>
 
-            <!-- Technical Projects -->
-            <section class="section">
-                <h2 class="section-title">Technical Projects</h2>
-                <p class="section-subtitle">Currently in progress</p>
-
-                <div class="card-grid">
-                    <div class="card">
-                        <span class="card-label project">In Progress</span>
-                        <h3>CipherVerse</h3>
-                        <p>Security utility tool inspired by CyberChef, including analyzers for data transformation and
-                            security testing use cases.</p>
-                    </div>
-
-                    <div class="card">
-                        <span class="card-label project">In Progress</span>
-                        <h3>Behavior-Based Malware Analyzer</h3>
-                        <p>Project focused on analyzing behavioral patterns of suspicious files through sandbox-based
-                            execution monitoring.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Internship Findings -->
-            <section class="section">
-                <h2 class="section-title">Internship Findings</h2>
-                <p class="section-subtitle">Vulnerabilities identified during authorized manual testing</p>
-
-                <div class="card-grid">
-                    <div class="card">
-                        <span class="card-label finding">Finding</span>
-                        <h3>Brute-Force Vulnerability — Missing Rate Limiting</h3>
-                        <p>Identified during authorized manual testing. Authentication endpoint allowed unlimited
-                            password attempts without any rate limiting mechanism.</p>
-                        <a href="projects/brute-force-rate-limit.html" class="card-link">View Detailed Report →</a>
-                    </div>
-
-                    <div class="card">
-                        <span class="card-label finding">Finding</span>
-                        <h3>Improper Server-Side Input Validation</h3>
-                        <p>Application accepted arbitrary values in user_type field due to lack of server-side
-                            validation, affecting data integrity.</p>
-                        <a href="projects/input-validation-issue.html" class="card-link">View Detailed Report →</a>
-                    </div>
-                </div>
-            </section>
+            <!--
+              ╔═══════════════════════════════════════════════════╗
+              ║  DYNAMIC CONTENT CONTAINER                       ║
+              ║  Content is loaded from: content/projects.json   ║
+              ║  To add a project → edit the JSON file           ║
+              ╚═══════════════════════════════════════════════════╝
+            -->
+            <div id="projects-content">
+                <!-- Content rendered dynamically by content-loader.js -->
+            </div>
 
         </div>
     </main>
@@ -117,6 +82,11 @@
     </button>
 
     <script src="js/main.js"></script>
+    <script src="js/content-loader.js"></script>
+    <script>
+        // Load projects content from JSON when page is ready
+        document.addEventListener('DOMContentLoaded', renderProjectsPage);
+    </script>
 </body>
 
 </html>

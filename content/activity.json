@@ -1,0 +1,82 @@
+{
+  "pageTitle": "Activity",
+  "pageDescription": "Professional timeline and milestones.",
+
+  "timeline": [
+    {
+      "year": "2026",
+      "items": [
+        {
+          "id": "uptoskills-intern",
+          "date": "Feb 2026 — Present",
+          "event": "Cyber Security Intern — UptoSkills (Ongoing)",
+          "description": "Manual web application testing and structured vulnerability assessments. Focus areas: authentication testing, rate-limit analysis, input validation, and formal reporting."
+        },
+        {
+          "id": "hacksavvy-26",
+          "date": "Feb 2026",
+          "event": "HackSavvy'26 — 24hr Hackathon, MGIT",
+          "description": "Developed a behavior-based malware detection framework using isolated VM execution and telemetry-driven analysis. Implemented execution lineage attribution and rule-based risk classification pipeline."
+        },
+        {
+          "id": "medium-article",
+          "date": "Jan 2026",
+          "event": "Published Technical Article (Medium)",
+          "description": "Documented real-world CCTV deployment challenges involving PoE debugging, IP conflicts, CGNAT, IPv6, DDNS, and automation via custom Android tool."
+        },
+        {
+          "id": "data-nexus-head",
+          "date": "Jan 2026",
+          "event": "Data Security Head — Data Nexus Technical Club",
+          "description": "Leading cybersecurity domain; mentoring members and assisting in technical event planning."
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "items": [
+        {
+          "id": "uptoskills-offer",
+          "date": "Dec 2025",
+          "event": "Received Internship Offer — UptoSkills",
+          "description": ""
+        },
+        {
+          "id": "apexplanet-complete",
+          "date": "Nov 2025",
+          "event": "Completed Cybersecurity & Ethical Hacking Internship — ApexPlanet",
+          "description": ""
+        },
+        {
+          "id": "apexplanet-intern",
+          "date": "Sep — Nov 2025",
+          "event": "Cybersecurity Intern — ApexPlanet Software Pvt. Ltd",
+          "description": ""
+        },
+        {
+          "id": "apexplanet-offer",
+          "date": "Sep 2025",
+          "event": "Received Internship Offer — ApexPlanet (AICTE Program)",
+          "description": ""
+        },
+        {
+          "id": "nptel-cert",
+          "date": "Jul — Oct 2025",
+          "event": "NPTEL Elite Certification — Ethical Hacking (IIT Kharagpur)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "year": "Ongoing",
+      "items": [
+        {
+          "id": "continuous-dev",
+          "date": "Continuous",
+          "event": "Continuous Technical Development",
+          "description": "Active learning through TryHackMe practical labs and independent security tool development."
+        }
+      ]
+    }
+  ]
+}

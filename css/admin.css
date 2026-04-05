@@ -1,0 +1,747 @@
+/* ============================================================
+ *  ADMIN PANEL STYLES — Cybrito Content Manager
+ *  Extends the main portfolio stylesheet with admin-specific UI
+ * ============================================================ */
+
+/* ─── Admin Badge ─────────────────────────────────────────── */
+.admin-badge {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    padding: 0.3rem 0.9rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+}
+
+/* ─── Tab Navigation ──────────────────────────────────────── */
+.admin-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-tab {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    font-family: inherit;
+}
+
+.admin-tab:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-tab.active {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+/* ─── Section Panels ──────────────────────────────────────── */
+.admin-section {
+    display: none;
+}
+
+.admin-section.active {
+    display: block;
+    animation: fadeSlideIn 0.35s ease;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #e2e8f0;
+}
+
+.admin-hint {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* ─── Preview Cards (existing items) ─────────────────────── */
+.admin-preview {
+    margin-bottom: 2rem;
+}
+
+.admin-preview h3 {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+}
+
+.admin-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.admin-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.2rem;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.admin-item:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    background: rgba(30, 41, 59, 0.8);
+}
+
+.admin-item-info {
+    flex: 1;
+}
+
+.admin-item-title {
+    color: #e2e8f0;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
+}
+
+.admin-item-meta {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.78rem;
+}
+
+.admin-item-badge {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.admin-item-delete {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    padding: 0.3rem;
+    margin-left: 0.5rem;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+    font-family: inherit;
+}
+
+.admin-item-delete:hover {
+    color: #f87171;
+}
+
+/* ─── Form Card ───────────────────────────────────────────── */
+.admin-form-card {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+}
+
+.admin-form-card h3 {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+}
+
+/* ─── Form Elements ───────────────────────────────────────── */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-group label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.65rem 0.9rem;
+    color: #e2e8f0;
+    font-size: 0.88rem;
+    font-family: inherit;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.form-group select option {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* ─── JSON Output Modal ──────────────────────────────────── */
+.admin-output-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-output-modal.active {
+    display: flex;
+}
+
+.admin-output-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+}
+
+.admin-output-content {
+    position: relative;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 700px;
+    width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.admin-output-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.admin-output-header h3 {
+    color: #e2e8f0;
+    font-size: 1.15rem;
+}
+
+.admin-output-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-family: inherit;
+}
+
+.admin-output-close:hover {
+    color: #fff;
+}
+
+.admin-output-hint {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.admin-output-hint code {
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.82rem;
+}
+
+#output-json {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 1.25rem;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    max-height: 350px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.admin-output-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+/* ─── Toast Notification ──────────────────────────────────── */
+.admin-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.35s ease;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.admin-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.admin-toast.error {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+/* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .admin-tabs {
+        flex-direction: column;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .admin-form-card {
+        padding: 1rem 1.25rem;
+    }
+
+    .admin-output-content {
+        padding: 1.25rem;
+    }
+
+    .auth-card {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+
+    .admin-nav-right {
+        gap: 0.5rem;
+    }
+
+    .logout-btn span {
+        display: none;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   AUTHENTICATION GATE
+   Full-screen overlay that blocks admin until login
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── Gate Overlay ────────────────────────────────────────── */
+.auth-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: #0a0f1e;
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+}
+
+.auth-gate.active {
+    display: flex;
+}
+
+/* ─── Login Card ──────────────────────────────────────────── */
+.auth-card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem 2rem;
+    max-width: 420px;
+    width: 90vw;
+    backdrop-filter: blur(20px);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(99, 102, 241, 0.05);
+    animation: authCardIn 0.5s ease;
+    text-align: center;
+}
+
+@keyframes authCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Shake animation for wrong password */
+.auth-card.shake {
+    animation: authShake 0.5s ease;
+}
+
+@keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    15% { transform: translateX(-12px); }
+    30% { transform: translateX(10px); }
+    45% { transform: translateX(-8px); }
+    60% { transform: translateX(6px); }
+    75% { transform: translateX(-3px); }
+}
+
+/* ─── Auth Icon ───────────────────────────────────────────── */
+.auth-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    color: #818cf8;
+}
+
+/* ─── Auth Typography ─────────────────────────────────────── */
+.auth-card h2 {
+    color: #e2e8f0;
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+.auth-subtitle {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+/* ─── Auth Form ───────────────────────────────────────────── */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+
+.auth-field label {
+    display: block;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.auth-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.auth-input-wrap input {
+    flex: 1;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 0.75rem 2.8rem 0.75rem 1rem;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: all 0.25s ease;
+    outline: none;
+    width: 100%;
+}
+
+.auth-input-wrap input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.auth-input-wrap input::placeholder {
+    color: rgba(255, 255, 255, 0.18);
+}
+
+.auth-input-wrap input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ─── Password Toggle Button ─────────────────────────────── */
+.auth-toggle-vis {
+    position: absolute;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    padding: 0.4rem;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.auth-toggle-vis:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.auth-toggle-vis.active {
+    color: #818cf8;
+}
+
+/* ─── Auth Error Message ──────────────────────────────────── */
+.auth-error {
+    color: #f87171;
+    font-size: 0.82rem;
+    min-height: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.auth-error.visible {
+    min-height: 1.5rem;
+    max-height: 3rem;
+    opacity: 1;
+    margin-top: -0.25rem;
+}
+
+/* ─── Auth Submit Button ──────────────────────────────────── */
+.auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    margin-top: 0.25rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+}
+
+.auth-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.auth-btn:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
+}
+
+/* ─── Auth Secondary Actions ──────────────────────────────── */
+.auth-secondary-actions {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.auth-link {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-family: inherit;
+    transition: color 0.2s;
+}
+
+.auth-link:hover {
+    color: #818cf8;
+}
+
+/* ─── Auth Footer Note ────────────────────────────────────── */
+.auth-footer-note {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.72rem;
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ADMIN NAV — Logout & Settings Buttons
+   ════════════════════════════════════════════════════════════ */
+
+.admin-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-nav-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-family: inherit;
+    transition: all 0.25s ease;
+}
+
+.admin-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.logout-btn {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ════════════════════════════════════════════════════════════
+   GITHUB SYNC — Status Indicator & Deploy Button
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── Sync Status Dot ─────────────────────────────────────── */
+.sync-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.sync-indicator.connected {
+    background: #34d399;
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.5);
+}
+
+.sync-indicator.disconnected {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Deploy Button ───────────────────────────────────────── */
+.btn-deploy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    flex: 1;
+}
+
+.btn-deploy:hover:not(:disabled) {
+    background: linear-gradient(135deg, #047857, #059669);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-deploy:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+/* ─── Deploying Spinner ───────────────────────────────────── */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
