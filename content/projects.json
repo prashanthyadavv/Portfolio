@@ -1,7 +1,6 @@
 {
   "pageTitle": "Security Projects & Research",
   "pageDescription": "Technical projects and internship findings from authorized security testing.",
-
   "sections": [
     {
       "id": "technical-projects",
@@ -50,6 +49,24 @@
           "description": "Application accepted arbitrary values in user_type field due to lack of server-side validation, affecting data integrity.",
           "link": "projects/input-validation-issue.html",
           "linkText": "View Detailed Report →"
+        },
+        {
+          "id": "idor-vulnerability-in-faculty-verification-sse-end",
+          "label": "Security Finding",
+          "labelType": "finding",
+          "title": "IDOR Vulnerability in Faculty Verification SSE Endpoint",
+          "description": "Discovered an Insecure Direct Object Reference (IDOR) vulnerability in the faculty verification Server-Sent Events (SSE) endpoint.\n\nThe endpoint:\n/api/faculty/college-verification/stream/{userId}\n\nfails to validate whether the requesting user is authorized to access the provided userId. By modifying the userId parameter, it is possible to access verification data of other users.\n\nThe response exposes sensitive information including:\n- College name\n- Verification status\n- Uploaded file names (logo and ID proof)\n- Timestamps and system messages\n\nImpact:\n- Unauthorized access to user-specific data\n- Enumeration of valid user IDs\n- Potential exposure of sensitive documents if file paths are predictable\n- Scalable data extraction due to streaming (SSE) nature\n\nProof of Concept:\nA Python script using HTTP/2 streaming confirms that valid user data can be retrieved by iterating user IDs.\n\nRoot Cause:\n- Missing authorization checks\n- Direct exposure of object references (userId)\n- Lack of access control on SSE endpoint\n\nSuggested Fix:\n- Enforce strict authorization checks for userId\n- Use UUIDs instead of sequential IDs\n- Restrict SSE endpoints to authenticated users\n- Avoid exposing sensitive file references\n\nSeverity:\nHigh / Critical",
+          "link": "",
+          "linkText": ""
+        },
+        {
+          "id": "idor-vulnerability-in-faculty-verification-sse-end",
+          "label": "Security Finding",
+          "labelType": "finding",
+          "title": "IDOR Vulnerability in Faculty Verification SSE Endpoint",
+          "description": "Unauthorized access to faculty verification data via IDOR in SSE endpoint. User IDs could be manipulated to retrieve sensitive details of other users.",
+          "link": "projects/IDOR_vuln.html",
+          "linkText": "View Detailed Report"
         }
       ]
     }
