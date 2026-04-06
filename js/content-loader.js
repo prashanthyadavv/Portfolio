@@ -141,15 +141,40 @@ async function renderHomePage() {
 
   // --- Featured Projects Section (Home) ---
   const projectsSection = document.getElementById('projects');
-  if (projectsSection && data.featuredProjects) {
+  if (projectsSection) {
     const grid = projectsSection.querySelector('.card-grid');
     if (grid) {
-      grid.innerHTML = data.featuredProjects.map(p => `
+      const projectsData = await loadContent('projects.json');
+      const writeupsData = await loadContent('writeups.json');
+      
+      const combinedItems = [];
+      const seenTitles = new Set();
+      
+      const addItems = (items) => {
+        if (!items) return;
+        items.forEach(p => {
+          // Use link for deduplication if it exists, otherwise fallback to title
+          const dedupKey = p.link ? p.link : p.title;
+          if (!seenTitles.has(dedupKey)) {
+            combinedItems.push(p);
+            seenTitles.add(dedupKey);
+          }
+        });
+      };
+
+      if (projectsData && projectsData.sections) {
+        projectsData.sections.forEach(sec => addItems(sec.items));
+      }
+      if (writeupsData && writeupsData.items) {
+        addItems(writeupsData.items);
+      }
+
+      grid.innerHTML = combinedItems.map(p => `
         <div class="card">
-          <span class="card-label">${escapeHTML(p.label)}</span>
+          <span class="card-label">${escapeHTML(p.label || p.labelType || '')}</span>
           <h3>${escapeHTML(p.title)}</h3>
           <p>${escapeHTML(p.description)}</p>
-          ${p.link ? `<a href="${escapeHTML(p.link)}" class="card-link">${escapeHTML(p.linkText)}</a>` : ''}
+          ${p.link ? `<a href="${escapeHTML(p.link)}" class="card-link">${escapeHTML(p.linkText || 'View →')}</a>` : ''}
         </div>
       `).join('');
     }

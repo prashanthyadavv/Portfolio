@@ -4,12 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Prevent search engines from indexing the admin panel -->
     <meta name="robots" content="noindex, nofollow">
+
     <title>Admin Panel — Cybrito Content Manager</title>
+
     <link rel="icon" type="image/png" href="images/profile.png">
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/admin.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 
 <body>
@@ -39,20 +46,21 @@
                 <span id="sync-status" class="sync-indicator disconnected" title="GitHub not connected"></span>
                 <button class="admin-nav-btn" onclick="showGitHubSetup()" title="GitHub Sync Settings">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                     </svg>
                 </button>
                 <button class="admin-nav-btn" onclick="changePassword()" title="Change Password">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
                 </button>
                 <button class="admin-nav-btn logout-btn" onclick="logout()" title="Logout">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                        <polyline points="16 17 21 12 16 7"/>
-                        <line x1="21" y1="12" x2="9" y2="12"/>
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
                     </svg>
                     Logout
                 </button>
@@ -72,7 +80,8 @@
             <!-- Page Header -->
             <div class="page-header">
                 <h1>Content Manager</h1>
-                <p>Add or edit portfolio content without touching code. Changes update the JSON files that power your site.</p>
+                <p>Add or edit portfolio content without touching code. Changes update the JSON files that power your
+                    site.</p>
             </div>
 
             <!-- Section Tabs -->
@@ -88,325 +97,341 @@
             <!-- ═══════════════════════════ SPLIT LAYOUT ═══════════════════════════ -->
             <div class="admin-split">
 
-            <!-- LEFT COLUMN: Forms -->
-            <div class="admin-left">
+                <!-- LEFT COLUMN: Forms -->
+                <div class="admin-left">
 
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  PROJECTS SECTION                          -->
-            <!-- ═══════════════════════════════════════════ -->
-            <div class="admin-section active" id="section-projects">
-                <h2>Manage Projects</h2>
-                <p class="admin-hint">Add a new project by filling in the form below. It will be added to the JSON and appear on the Projects page.</p>
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!--  PROJECTS SECTION                          -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <div class="admin-section active" id="section-projects">
+                        <h2>Manage Projects</h2>
+                        <p class="admin-hint">Add a new project by filling in the form below. It will be added to the
+                            JSON and appear on the Projects page.</p>
 
-                <!-- Existing Projects Preview -->
-                <div class="admin-preview" id="projects-preview">
-                    <h3>Current Projects</h3>
-                    <div id="projects-list" class="admin-items-list">
-                        <!-- Populated by JS after auth -->
-                    </div>
-                </div>
-
-                <!-- Add New Project Form -->
-                <div class="admin-form-card">
-                    <h3>➕ Add New Project</h3>
-                    <form id="add-project-form" class="admin-form">
-                        <div class="form-group">
-                            <label for="proj-section">Section</label>
-                            <select id="proj-section" required>
-                                <option value="">— Select section —</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="proj-title">Project Title *</label>
-                            <input type="text" id="proj-title" placeholder="e.g. SQL Injection Scanner" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="proj-label">Label</label>
-                            <input type="text" id="proj-label" placeholder="e.g. In Progress, Finding, Tool">
-                        </div>
-                        <div class="form-group">
-                            <label for="proj-label-type">Label Type</label>
-                            <select id="proj-label-type">
-                                <option value="project">Project</option>
-                                <option value="finding">Finding</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="proj-desc">Description *</label>
-                            <textarea id="proj-desc" rows="3" placeholder="Brief description of the project..." required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="proj-link">Link (optional)</label>
-                            <input type="text" id="proj-link" placeholder="e.g. projects/my-report.html">
-                        </div>
-                        <div class="form-group">
-                            <label for="proj-link-text">Link Text (optional)</label>
-                            <input type="text" id="proj-link-text" placeholder="e.g. View Report →">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Project</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  WRITEUPS SECTION                          -->
-            <!-- ═══════════════════════════════════════════ -->
-            <div class="admin-section" id="section-writeups">
-                <h2>Manage Writeups</h2>
-                <p class="admin-hint">Add vulnerability reports and technical writeups.</p>
-
-                <div class="admin-preview" id="writeups-preview">
-                    <h3>Current Writeups</h3>
-                    <div id="writeups-list" class="admin-items-list"></div>
-                </div>
-
-                <div class="admin-form-card">
-                    <h3>➕ Add New Writeup</h3>
-                    <form id="add-writeup-form" class="admin-form">
-                        <div class="form-group">
-                            <label for="wu-title">Title *</label>
-                            <input type="text" id="wu-title" placeholder="e.g. XSS in Search Parameter" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="wu-label">Label</label>
-                            <input type="text" id="wu-label" placeholder="e.g. Vulnerability Report">
-                        </div>
-                        <div class="form-group">
-                            <label for="wu-desc">Description *</label>
-                            <textarea id="wu-desc" rows="3" placeholder="Describe the writeup..." required></textarea>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="wu-severity">Severity</label>
-                                <select id="wu-severity">
-                                    <option value="">None</option>
-                                    <option value="Critical">Critical</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                    <option value="Informational">Informational</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="wu-date">Date</label>
-                                <input type="text" id="wu-date" placeholder="e.g. March 2026">
+                        <!-- Existing Projects Preview -->
+                        <div class="admin-preview" id="projects-preview">
+                            <h3>Current Projects</h3>
+                            <div id="projects-list" class="admin-items-list">
+                                <!-- Populated by JS after auth -->
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="wu-link">Link to Report (optional)</label>
-                            <input type="text" id="wu-link" placeholder="e.g. projects/my-writeup.html">
-                        </div>
-                        <div class="form-group">
-                            <label for="wu-link-text">Link Text</label>
-                            <input type="text" id="wu-link-text" placeholder="e.g. Read Full Report →">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Writeup</button>
-                    </form>
-                </div>
-            </div>
 
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  ACTIVITY SECTION                          -->
-            <!-- ═══════════════════════════════════════════ -->
-            <div class="admin-section" id="section-activity">
-                <h2>Manage Activity Timeline</h2>
-                <p class="admin-hint">Add new timeline entries to your professional activity.</p>
-
-                <div class="admin-preview" id="activity-preview">
-                    <h3>Current Timeline</h3>
-                    <div id="activity-list" class="admin-items-list"></div>
-                </div>
-
-                <div class="admin-form-card">
-                    <h3>➕ Add Timeline Entry</h3>
-                    <form id="add-activity-form" class="admin-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="act-year">Year Group *</label>
-                                <input type="text" id="act-year" placeholder="e.g. 2026" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="act-date">Date *</label>
-                                <input type="text" id="act-date" placeholder="e.g. Mar 2026" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="act-event">Event Title *</label>
-                            <input type="text" id="act-event" placeholder="e.g. Bug Bounty Recognition — HackerOne" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="act-desc">Description (optional)</label>
-                            <textarea id="act-desc" rows="3" placeholder="Details about this activity..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Activity</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  ABOUT SECTION                             -->
-            <!-- ═══════════════════════════════════════════ -->
-            <div class="admin-section" id="section-about">
-                <h2>Manage About Page</h2>
-                <p class="admin-hint">Add experience entries, leadership roles, and skills.</p>
-
-                <div class="admin-preview" id="about-preview">
-                    <h3>Current Experience</h3>
-                    <div id="about-list" class="admin-items-list"></div>
-                </div>
-
-                <div class="admin-form-card">
-                    <h3>➕ Add Experience</h3>
-                    <form id="add-experience-form" class="admin-form">
-                        <div class="form-group">
-                            <label for="exp-company">Company / Organization *</label>
-                            <input type="text" id="exp-company" placeholder="e.g. CyberCorp Solutions" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exp-role">Role *</label>
-                            <input type="text" id="exp-role" placeholder="e.g. Security Analyst Intern" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exp-period">Period *</label>
-                            <input type="text" id="exp-period" placeholder="e.g. Jan 2026 – Apr 2026" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exp-responsibilities">Responsibilities (one per line)</label>
-                            <textarea id="exp-responsibilities" rows="4" placeholder="Performed penetration testing&#10;Wrote vulnerability reports&#10;..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Experience</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  CONTACT SECTION                           -->
-            <!-- ═══════════════════════════════════════════ -->
-            <div class="admin-section" id="section-contact">
-                <h2>Manage Contact Links</h2>
-                <p class="admin-hint">Add or update your contact methods.</p>
-
-                <div class="admin-preview" id="contact-preview">
-                    <h3>Current Contact Links</h3>
-                    <div id="contact-list" class="admin-items-list"></div>
-                </div>
-
-                <div class="admin-form-card">
-                    <h3>➕ Add Contact Link</h3>
-                    <form id="add-contact-form" class="admin-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="contact-label">Label *</label>
-                                <input type="text" id="contact-label" placeholder="e.g. Twitter" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-icon">Icon</label>
-                                <select id="contact-icon">
-                                    <option value="email">Email</option>
-                                    <option value="github">GitHub</option>
-                                    <option value="linkedin">LinkedIn</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-value">Display Value *</label>
-                            <input type="text" id="contact-value" placeholder="e.g. twitter.com/cybrito" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-url">URL *</label>
-                            <input type="text" id="contact-url" placeholder="e.g. https://twitter.com/cybrito" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-type">Type</label>
-                            <select id="contact-type">
-                                <option value="external">External Link</option>
-                                <option value="email">Email</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Contact Link</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════ -->
-            <!--  HOME SECTION                              -->
-            <!-- ═══════════════════════════════════════════ -->
-            <div class="admin-section" id="section-home">
-                <h2>Manage Home Page</h2>
-                <p class="admin-hint">Edit hero section text and featured content.</p>
-
-                <div class="admin-form-card">
-                    <h3>✏️ Edit Hero Section</h3>
-                    <form id="edit-hero-form" class="admin-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="hero-firstname">First Name</label>
-                                <input type="text" id="hero-firstname" placeholder="Prashanth Yadav">
-                            </div>
-                            <div class="form-group">
-                                <label for="hero-lastname">Last Name</label>
-                                <input type="text" id="hero-lastname" placeholder="Pittakala">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="hero-subtitle">Subtitle</label>
-                            <input type="text" id="hero-subtitle" placeholder="Security Researcher & Intern @ ...">
-                        </div>
-                        <div class="form-group">
-                            <label for="hero-desc">Description</label>
-                            <textarea id="hero-desc" rows="3" placeholder="Brief description..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Hero</button>
-                    </form>
-                </div>
-
-                <div class="admin-preview">
-                    <h3>Current Certifications</h3>
-                    <div id="home-certs-list" class="admin-items-list"></div>
-                </div>
-
-                <div class="admin-form-card">
-                    <h3>➕ Add Certification</h3>
-                    <form id="add-cert-form" class="admin-form">
-                        <div class="form-group">
-                            <label for="cert-title">Certificate Title *</label>
-                            <input type="text" id="cert-title" placeholder="e.g. CompTIA Security+" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="cert-issuer">Issuer *</label>
-                            <input type="text" id="cert-issuer" placeholder="e.g. Issued by CompTIA" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="cert-image">Image Path *</label>
-                            <input type="text" id="cert-image" placeholder="e.g. images/certs/comptia-security.png" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Certification</button>
-                    </form>
-                </div>
-            </div>
-
-            </div><!-- /.admin-left -->
-
-            <!-- RIGHT COLUMN: Live Preview -->
-            <div class="admin-right">
-                <div class="preview-panel" id="preview-panel">
-                    <div class="preview-header">
-                        <div class="preview-dot"></div>
-                        <span>Live Preview</span>
-                    </div>
-                    <div class="preview-label" id="preview-label">Start typing to see preview</div>
-                    <div class="preview-body" id="preview-body">
-                        <div class="preview-empty">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:0.2;">
-                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                                <line x1="8" y1="21" x2="16" y2="21"/>
-                                <line x1="12" y1="17" x2="12" y2="21"/>
-                            </svg>
-                            <p>Fill in the form on the left to see how your content will look on the website.</p>
+                        <!-- Add New Project Form -->
+                        <div class="admin-form-card">
+                            <h3>➕ Add New Project</h3>
+                            <form id="add-project-form" class="admin-form">
+                                <div class="form-group">
+                                    <label for="proj-section">Section</label>
+                                    <select id="proj-section" required>
+                                        <option value="">— Select section —</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="proj-title">Project Title *</label>
+                                    <input type="text" id="proj-title" placeholder="e.g. SQL Injection Scanner"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="proj-label">Label</label>
+                                    <input type="text" id="proj-label" placeholder="e.g. In Progress, Finding, Tool">
+                                </div>
+                                <div class="form-group">
+                                    <label for="proj-label-type">Label Type</label>
+                                    <select id="proj-label-type">
+                                        <option value="project">Project</option>
+                                        <option value="finding">Finding</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description *</label>
+                                    <div id="proj-desc" style="height: 150px; background: #fff; color: #000; border-radius: 4px;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="proj-link">Link (optional)</label>
+                                    <input type="text" id="proj-link" placeholder="e.g. projects/my-report.html">
+                                </div>
+                                <div class="form-group">
+                                    <label for="proj-link-text">Link Text (optional)</label>
+                                    <input type="text" id="proj-link-text" placeholder="e.g. View Report →">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Project</button>
+                            </form>
                         </div>
                     </div>
-                </div>
-            </div><!-- /.admin-right -->
+
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!--  WRITEUPS SECTION                          -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <div class="admin-section" id="section-writeups">
+                        <h2>Manage Writeups</h2>
+                        <p class="admin-hint">Add vulnerability reports and technical writeups.</p>
+
+                        <div class="admin-preview" id="writeups-preview">
+                            <h3>Current Writeups</h3>
+                            <div id="writeups-list" class="admin-items-list"></div>
+                        </div>
+
+                        <div class="admin-form-card">
+                            <h3>➕ Add New Writeup</h3>
+                            <form id="add-writeup-form" class="admin-form">
+                                <div class="form-group">
+                                    <label for="wu-title">Title *</label>
+                                    <input type="text" id="wu-title" placeholder="e.g. XSS in Search Parameter"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="wu-label">Label</label>
+                                    <input type="text" id="wu-label" placeholder="e.g. Vulnerability Report">
+                                </div>
+                                <div class="form-group">
+                                    <label>Description *</label>
+                                    <div id="wu-desc" style="height: 150px; background: #fff; color: #000; border-radius: 4px;"></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="wu-severity">Severity</label>
+                                        <select id="wu-severity">
+                                            <option value="">None</option>
+                                            <option value="Critical">Critical</option>
+                                            <option value="High">High</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Informational">Informational</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wu-date">Date</label>
+                                        <input type="text" id="wu-date" placeholder="e.g. March 2026">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="wu-link">Link to Report (optional)</label>
+                                    <input type="text" id="wu-link" placeholder="e.g. projects/my-writeup.html">
+                                </div>
+                                <div class="form-group">
+                                    <label for="wu-link-text">Link Text</label>
+                                    <input type="text" id="wu-link-text" placeholder="e.g. Read Full Report →">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Writeup</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!--  ACTIVITY SECTION                          -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <div class="admin-section" id="section-activity">
+                        <h2>Manage Activity Timeline</h2>
+                        <p class="admin-hint">Add new timeline entries to your professional activity.</p>
+
+                        <div class="admin-preview" id="activity-preview">
+                            <h3>Current Timeline</h3>
+                            <div id="activity-list" class="admin-items-list"></div>
+                        </div>
+
+                        <div class="admin-form-card">
+                            <h3>➕ Add Timeline Entry</h3>
+                            <form id="add-activity-form" class="admin-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="act-year">Year Group *</label>
+                                        <input type="text" id="act-year" placeholder="e.g. 2026" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="act-date">Date *</label>
+                                        <input type="text" id="act-date" placeholder="e.g. Mar 2026" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="act-event">Event Title *</label>
+                                    <input type="text" id="act-event"
+                                        placeholder="e.g. Bug Bounty Recognition — HackerOne" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="act-desc">Description (optional)</label>
+                                    <textarea id="act-desc" rows="3"
+                                        placeholder="Details about this activity..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Activity</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!--  ABOUT SECTION                             -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <div class="admin-section" id="section-about">
+                        <h2>Manage About Page</h2>
+                        <p class="admin-hint">Add experience entries, leadership roles, and skills.</p>
+
+                        <div class="admin-preview" id="about-preview">
+                            <h3>Current Experience</h3>
+                            <div id="about-list" class="admin-items-list"></div>
+                        </div>
+
+                        <div class="admin-form-card">
+                            <h3>➕ Add Experience</h3>
+                            <form id="add-experience-form" class="admin-form">
+                                <div class="form-group">
+                                    <label for="exp-company">Company / Organization *</label>
+                                    <input type="text" id="exp-company" placeholder="e.g. CyberCorp Solutions" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exp-role">Role *</label>
+                                    <input type="text" id="exp-role" placeholder="e.g. Security Analyst Intern"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exp-period">Period *</label>
+                                    <input type="text" id="exp-period" placeholder="e.g. Jan 2026 – Apr 2026" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exp-responsibilities">Responsibilities (one per line)</label>
+                                    <textarea id="exp-responsibilities" rows="4"
+                                        placeholder="Performed penetration testing&#10;Wrote vulnerability reports&#10;..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Experience</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!--  CONTACT SECTION                           -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <div class="admin-section" id="section-contact">
+                        <h2>Manage Contact Links</h2>
+                        <p class="admin-hint">Add or update your contact methods.</p>
+
+                        <div class="admin-preview" id="contact-preview">
+                            <h3>Current Contact Links</h3>
+                            <div id="contact-list" class="admin-items-list"></div>
+                        </div>
+
+                        <div class="admin-form-card">
+                            <h3>➕ Add Contact Link</h3>
+                            <form id="add-contact-form" class="admin-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="contact-label">Label *</label>
+                                        <input type="text" id="contact-label" placeholder="e.g. Twitter" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contact-icon">Icon</label>
+                                        <select id="contact-icon">
+                                            <option value="email">Email</option>
+                                            <option value="github">GitHub</option>
+                                            <option value="linkedin">LinkedIn</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-value">Display Value *</label>
+                                    <input type="text" id="contact-value" placeholder="e.g. twitter.com/cybrito"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-url">URL *</label>
+                                    <input type="text" id="contact-url" placeholder="e.g. https://twitter.com/cybrito"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-type">Type</label>
+                                    <select id="contact-type">
+                                        <option value="external">External Link</option>
+                                        <option value="email">Email</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Contact Link</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!--  HOME SECTION                              -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <div class="admin-section" id="section-home">
+                        <h2>Manage Home Page</h2>
+                        <p class="admin-hint">Edit hero section text and featured content.</p>
+
+                        <div class="admin-form-card">
+                            <h3>✏️ Edit Hero Section</h3>
+                            <form id="edit-hero-form" class="admin-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="hero-firstname">First Name</label>
+                                        <input type="text" id="hero-firstname" placeholder="Prashanth Yadav">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hero-lastname">Last Name</label>
+                                        <input type="text" id="hero-lastname" placeholder="Pittakala">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hero-subtitle">Subtitle</label>
+                                    <input type="text" id="hero-subtitle"
+                                        placeholder="Security Researcher & Intern @ ...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hero-desc">Description</label>
+                                    <textarea id="hero-desc" rows="3" placeholder="Brief description..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Hero</button>
+                            </form>
+                        </div>
+
+                        <div class="admin-preview">
+                            <h3>Current Certifications</h3>
+                            <div id="home-certs-list" class="admin-items-list"></div>
+                        </div>
+
+                        <div class="admin-form-card">
+                            <h3>➕ Add Certification</h3>
+                            <form id="add-cert-form" class="admin-form">
+                                <div class="form-group">
+                                    <label for="cert-title">Certificate Title *</label>
+                                    <input type="text" id="cert-title" placeholder="e.g. CompTIA Security+" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cert-issuer">Issuer *</label>
+                                    <input type="text" id="cert-issuer" placeholder="e.g. Issued by CompTIA" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cert-image-file">Upload Image *</label>
+                                    <input type="file" id="cert-image-file" accept="image/*" class="file-uploader">
+                                    <div id="image-preview-container" style="margin-top: 10px; display: none;">
+                                        <img id="image-preview" width="120" style="border-radius: 6px; border: 1px solid rgba(255,255,255,0.2);">
+                                    </div>
+                                    <!-- Hidden input stores the returned markdown path after upload -->
+                                    <input type="hidden" id="cert-image">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Certification</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div><!-- /.admin-left -->
+
+                <!-- RIGHT COLUMN: Live Preview -->
+                <div class="admin-right">
+                    <div class="preview-panel" id="preview-panel">
+                        <div class="preview-header">
+                            <div class="preview-dot"></div>
+                            <span>Live Preview</span>
+                        </div>
+                        <div class="preview-label" id="preview-label">Start typing to see preview</div>
+                        <div class="preview-body" id="preview-body">
+                            <div class="preview-empty">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" style="opacity:0.2;">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                    <line x1="8" y1="21" x2="16" y2="21" />
+                                    <line x1="12" y1="17" x2="12" y2="21" />
+                                </svg>
+                                <p>Fill in the form on the left to see how your content will look on the website.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.admin-right -->
 
             </div><!-- /.admin-split -->
 
@@ -420,12 +445,15 @@
                         <h3>📋 Updated JSON</h3>
                         <button class="admin-output-close" id="output-close">&times;</button>
                     </div>
-                    <p class="admin-output-hint">Copy this JSON and replace the contents of <code id="output-filename"></code></p>
+                    <p class="admin-output-hint">Copy this JSON and replace the contents of <code
+                            id="output-filename"></code></p>
                     <pre id="output-json"></pre>
                     <div class="admin-output-actions">
                         <button class="btn btn-deploy" id="deploy-json-btn" disabled>
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 2L11 13" />
+                                <path d="M22 2l-7 20-4-9-9-4 20-7z" />
                             </svg>
                             Save & Deploy
                         </button>

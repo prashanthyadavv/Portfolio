@@ -340,6 +340,7 @@ function showSetupScreen() {
     await setPassword(pw);
     createSession();
     clearAttempts();
+    sessionStorage.setItem("admin_password", pw);
     showAdminPanel();
     startSessionWatchdog();
   });
@@ -419,6 +420,7 @@ function showLoginScreen() {
     if (isValid) {
       createSession();
       clearAttempts();
+      sessionStorage.setItem("admin_password", pw);
       showAdminPanel();
       startSessionWatchdog();
     } else {
