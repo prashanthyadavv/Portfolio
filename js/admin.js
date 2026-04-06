@@ -58,6 +58,9 @@ async function initAdminPanel() {
 
   // Setup modal
   setupModal();
+
+  // Setup live preview
+  setupLivePreview();
 }
 
 
@@ -78,8 +81,14 @@ function setupTabs() {
       tab.classList.add('active');
       const sectionId = 'section-' + tab.dataset.section;
       document.getElementById(sectionId).classList.add('active');
+
+      // Update live preview for the new tab
+      updateLivePreview(tab.dataset.section);
     });
   });
+
+  // Initialize preview for the default active tab
+  updateLivePreview('projects');
 }
 
 
@@ -526,6 +535,265 @@ function setupModal() {
   if (typeof initSyncStatus === 'function') {
     initSyncStatus();
   }
+}
+
+
+// ════════════════════════════════════════════════════════════
+//  LIVE PREVIEW — Real-time rendering as you type
+// ════════════════════════════════════════════════════════════
+
+/**
+ * Sets up input event listeners on all form fields
+ * so the preview updates in real-time as the user types.
+ */
+function setupLivePreview() {
+  // Map form IDs to their section names
+  const formFieldMap = {
+    'projects': ['proj-section', 'proj-title', 'proj-label', 'proj-label-type', 'proj-desc', 'proj-link', 'proj-link-text'],
+    'writeups': ['wu-title', 'wu-label', 'wu-desc', 'wu-severity', 'wu-date', 'wu-link', 'wu-link-text'],
+    'activity': ['act-year', 'act-date', 'act-event', 'act-desc'],
+    'about': ['exp-company', 'exp-role', 'exp-period', 'exp-responsibilities'],
+    'contact': ['contact-label', 'contact-icon', 'contact-value', 'contact-url', 'contact-type'],
+    'home': ['hero-firstname', 'hero-lastname', 'hero-subtitle', 'hero-desc', 'cert-title', 'cert-issuer', 'cert-image']
+  };
+
+  // Attach multiple event listeners for maximum compatibility
+  const events = ['input', 'change', 'keyup', 'blur'];
+  Object.entries(formFieldMap).forEach(([section, fieldIds]) => {
+    fieldIds.forEach(fieldId => {
+      const el = document.getElementById(fieldId);
+      if (el) {
+        events.forEach(evt => {
+          el.addEventListener(evt, () => updateLivePreview(section));
+        });
+      }
+    });
+  });
+
+  // Periodic refresh every 500ms to catch any missed updates (paste, autofill, etc.)
+  let lastActiveSection = 'projects';
+  setInterval(() => {
+    const activeTab = document.querySelector('.admin-tab.active');
+    if (activeTab) {
+      lastActiveSection = activeTab.dataset.section;
+    }
+    updateLivePreview(lastActiveSection);
+  }, 500);
+}
+
+/**
+ * Updates the live preview panel based on the active section.
+ * @param {string} section - The active section name
+ */
+function updateLivePreview(section) {
+  const previewBody = document.getElementById('preview-body');
+  const previewLabel = document.getElementById('preview-label');
+  if (!previewBody || !previewLabel) return;
+
+  switch (section) {
+    case 'projects':
+      previewLabel.textContent = 'Project Card — as shown on Projects page';
+      previewBody.innerHTML = renderProjectPreview();
+      break;
+    case 'writeups':
+      previewLabel.textContent = 'Writeup Card — as shown on Writeups page';
+      previewBody.innerHTML = renderWriteupPreview();
+      break;
+    case 'activity':
+      previewLabel.textContent = 'Timeline Entry — as shown on Activity page';
+      previewBody.innerHTML = renderActivityPreview();
+      break;
+    case 'about':
+      previewLabel.textContent = 'Experience Entry — as shown on About page';
+      previewBody.innerHTML = renderAboutPreview();
+      break;
+    case 'contact':
+      previewLabel.textContent = 'Contact Link — as shown on Contact page';
+      previewBody.innerHTML = renderContactPreview();
+      break;
+    case 'home':
+      previewLabel.textContent = 'Hero Section & Cert — as shown on Home page';
+      previewBody.innerHTML = renderHomePreviewLive();
+      break;
+    default:
+      previewBody.innerHTML = '<div class="preview-empty"><p>Select a tab to see preview</p></div>';
+  }
+}
+
+// ─── Preview Renderers ─────────────────────────────────────
+
+function renderProjectPreview() {
+  const title = document.getElementById('proj-title')?.value;
+  const desc = document.getElementById('proj-desc')?.value;
+  const label = document.getElementById('proj-label')?.value;
+  const labelType = document.getElementById('proj-label-type')?.value || 'project';
+  const link = document.getElementById('proj-link')?.value;
+  const linkText = document.getElementById('proj-link-text')?.value;
+
+  if (!title && !desc) {
+    return '<div class="preview-empty"><p>Start typing a project title to see the preview...</p></div>';
+  }
+
+  return `
+    <div class="card">
+      ${label ? `<span class="card-label ${escapeHTML(labelType)}">${escapeHTML(label)}</span>` : ''}
+      <h3>${escapeHTML(title || 'Project Title')}</h3>
+      <p>${escapeHTML(desc || 'Description...')}</p>
+      ${link ? `<a class="card-link" style="pointer-events:none;">${escapeHTML(linkText || 'View →')}</a>` : ''}
+    </div>
+  `;
+}
+
+function renderWriteupPreview() {
+  const title = document.getElementById('wu-title')?.value;
+  const desc = document.getElementById('wu-desc')?.value;
+  const label = document.getElementById('wu-label')?.value;
+  const severity = document.getElementById('wu-severity')?.value;
+  const date = document.getElementById('wu-date')?.value;
+  const link = document.getElementById('wu-link')?.value;
+  const linkText = document.getElementById('wu-link-text')?.value;
+
+  if (!title && !desc) {
+    return '<div class="preview-empty"><p>Start typing a writeup title to see the preview...</p></div>';
+  }
+
+  return `
+    <div class="card">
+      ${label ? `<span class="card-label finding">${escapeHTML(label)}</span>` : ''}
+      <h3>${escapeHTML(title || 'Writeup Title')}</h3>
+      ${date ? `<p class="writeup-date" style="color:#818cf8; font-size:0.78rem; margin-bottom:0.5rem;">${escapeHTML(date)}</p>` : ''}
+      <p>${escapeHTML(desc || 'Description...')}</p>
+      ${severity ? `
+        <div style="margin: 0.5rem 0;">
+          <span class="severity ${severity.toLowerCase()}">${escapeHTML(severity)} Severity</span>
+        </div>
+      ` : ''}
+      ${link ? `<a class="card-link" style="pointer-events:none;">${escapeHTML(linkText || 'Read Report →')}</a>` : ''}
+    </div>
+  `;
+}
+
+function renderActivityPreview() {
+  const year = document.getElementById('act-year')?.value;
+  const date = document.getElementById('act-date')?.value;
+  const event = document.getElementById('act-event')?.value;
+  const desc = document.getElementById('act-desc')?.value;
+
+  if (!event && !date) {
+    return '<div class="preview-empty"><p>Start typing an event title to see the preview...</p></div>';
+  }
+
+  return `
+    ${year ? `<div style="color:#818cf8; font-weight:700; font-size:0.9rem; margin-bottom:0.6rem;">${escapeHTML(year)}</div>` : ''}
+    <div class="timeline-item">
+      <p class="date">${escapeHTML(date || 'Date')}</p>
+      <p class="event">${escapeHTML(event || 'Event Title')}</p>
+      ${desc ? `<p style="color:rgba(255,255,255,0.4); font-size:0.8rem; margin-top:0.3rem;">${escapeHTML(desc)}</p>` : ''}
+    </div>
+  `;
+}
+
+function renderAboutPreview() {
+  const company = document.getElementById('exp-company')?.value;
+  const role = document.getElementById('exp-role')?.value;
+  const period = document.getElementById('exp-period')?.value;
+  const respText = document.getElementById('exp-responsibilities')?.value;
+
+  if (!company && !role) {
+    return '<div class="preview-empty"><p>Start typing a company name to see the preview...</p></div>';
+  }
+
+  const responsibilities = respText
+    ? respText.split('\n').map(l => l.trim()).filter(l => l)
+    : [];
+
+  return `
+    <div class="experience-item">
+      <h3>${escapeHTML(company || 'Company Name')}</h3>
+      <p class="role">${escapeHTML(role || 'Role')}</p>
+      <p class="period">${escapeHTML(period || 'Period')}</p>
+      ${responsibilities.length > 0 ? `
+        <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+          ${responsibilities.map(r => `<li style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-bottom:0.2rem;">${escapeHTML(r)}</li>`).join('')}
+        </ul>
+      ` : ''}
+    </div>
+  `;
+}
+
+function renderContactPreview() {
+  const label = document.getElementById('contact-label')?.value;
+  const icon = document.getElementById('contact-icon')?.value || 'email';
+  const value = document.getElementById('contact-value')?.value;
+  const url = document.getElementById('contact-url')?.value;
+
+  if (!label && !value) {
+    return '<div class="preview-empty"><p>Start typing a label to see the preview...</p></div>';
+  }
+
+  const PREVIEW_ICONS = {
+    email: `<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>`,
+    github: `<svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>`,
+    linkedin: `<svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`
+  };
+
+  return `
+    <div class="contact-item">
+      <div class="contact-icon">${PREVIEW_ICONS[icon] || PREVIEW_ICONS.email}</div>
+      <div class="contact-info">
+        <p class="label">${escapeHTML(label || 'Label')}</p>
+        <p class="value">${escapeHTML(value || 'contact@example.com')}</p>
+      </div>
+    </div>
+  `;
+}
+
+function renderHomePreviewLive() {
+  const firstName = document.getElementById('hero-firstname')?.value;
+  const lastName = document.getElementById('hero-lastname')?.value;
+  const subtitle = document.getElementById('hero-subtitle')?.value;
+  const desc = document.getElementById('hero-desc')?.value;
+  const certTitle = document.getElementById('cert-title')?.value;
+  const certIssuer = document.getElementById('cert-issuer')?.value;
+
+  let html = '';
+
+  // Hero preview
+  if (firstName || lastName || subtitle || desc) {
+    html += `
+      <div class="preview-hero">
+        <h1>${escapeHTML(firstName || 'First')} <span>${escapeHTML(lastName || 'Last')}</span></h1>
+        ${subtitle ? `<p class="subtitle">${escapeHTML(subtitle)}</p>` : ''}
+        ${desc ? `<p class="description">${escapeHTML(desc)}</p>` : ''}
+      </div>
+    `;
+  }
+
+  // Cert preview
+  if (certTitle || certIssuer) {
+    html += `
+      <div style="border-top:1px solid rgba(255,255,255,0.06); padding-top:1rem; margin-top:0.5rem;">
+        <div style="font-size:0.72rem; color:rgba(255,255,255,0.25); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em;">New Certification</div>
+        <div class="cert-card-preview">
+          <div class="cert-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>${escapeHTML(certTitle || 'Certificate Title')}</h3>
+            <p>${escapeHTML(certIssuer || 'Issuer')}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (!html) {
+    return '<div class="preview-empty"><p>Edit hero fields or add a certification to see preview...</p></div>';
+  }
+
+  return html;
 }
 
 

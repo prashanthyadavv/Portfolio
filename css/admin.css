@@ -369,7 +369,301 @@
     background: linear-gradient(135deg, #dc2626, #ef4444);
 }
 
+/* ════════════════════════════════════════════════════════════
+   SPLIT LAYOUT — Form on left, Live Preview on right
+   ════════════════════════════════════════════════════════════ */
+
+.admin-split {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.admin-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-right {
+    width: 380px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+/* Scrollbar styling for preview panel */
+.admin-right::-webkit-scrollbar {
+    width: 4px;
+}
+.admin-right::-webkit-scrollbar-track {
+    background: transparent;
+}
+.admin-right::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
+
+/* ─── Preview Panel ───────────────────────────────────────── */
+.preview-panel {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.preview-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.4);
+    animation: previewPulse 2s ease infinite;
+}
+
+@keyframes previewPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.preview-label {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.preview-body {
+    padding: 1.25rem;
+    min-height: 200px;
+}
+
+/* Empty state */
+.preview-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* ─── Preview Cards — Use same classes as main site ───────── */
+.preview-body .card {
+    margin-bottom: 1rem;
+    animation: previewFadeIn 0.3s ease;
+}
+
+.preview-body .card:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes previewFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Preview timeline items */
+.preview-body .timeline-item {
+    border-left: 2px solid rgba(99, 102, 241, 0.3);
+    padding-left: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.preview-body .timeline-item .date {
+    font-size: 0.75rem;
+    color: #818cf8;
+    margin-bottom: 0.25rem;
+}
+
+.preview-body .timeline-item .event {
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+/* Preview experience items */
+.preview-body .experience-item {
+    padding: 1rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+}
+
+.preview-body .experience-item h3 {
+    font-size: 0.95rem;
+    color: #e2e8f0;
+    margin-bottom: 0.25rem;
+}
+
+.preview-body .experience-item .role {
+    color: #818cf8;
+    font-size: 0.82rem;
+    margin-bottom: 0.15rem;
+}
+
+.preview-body .experience-item .period {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.75rem;
+}
+
+/* Preview contact items */
+.preview-body .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+}
+
+.preview-body .contact-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(99, 102, 241, 0.1);
+    color: #818cf8;
+}
+
+.preview-body .contact-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.preview-body .contact-info .label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.preview-body .contact-info .value {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Preview hero section */
+.preview-hero {
+    text-align: center;
+    padding: 1.5rem 0.5rem;
+}
+
+.preview-hero h1 {
+    font-size: 1.3rem;
+    color: #e2e8f0;
+    margin-bottom: 0.4rem;
+}
+
+.preview-hero h1 span {
+    color: #818cf8;
+}
+
+.preview-hero .subtitle {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.preview-hero .description {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1.5;
+}
+
+/* Preview cert card */
+.preview-body .cert-card-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.preview-body .cert-card-preview .cert-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 8px;
+    color: #818cf8;
+}
+
+.preview-body .cert-card-preview h3 {
+    font-size: 0.85rem;
+    color: #e2e8f0;
+}
+
+.preview-body .cert-card-preview p {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* Severity badges in preview */
+.preview-body .severity {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.preview-body .severity.critical { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+.preview-body .severity.high { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
+.preview-body .severity.medium { background: rgba(234, 179, 8, 0.15); color: #facc15; }
+.preview-body .severity.low { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+.preview-body .severity.informational { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+
 /* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .admin-split {
+        flex-direction: column-reverse;
+    }
+
+    .admin-right {
+        width: 100%;
+        position: static;
+        max-height: none;
+    }
+}
+
 @media (max-width: 640px) {
     .admin-tabs {
         flex-direction: column;

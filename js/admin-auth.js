@@ -387,9 +387,6 @@ function showLoginScreen() {
           Sign In
         </button>
       </form>
-      <div class="auth-secondary-actions">
-        <button type="button" class="auth-link" id="reset-password-btn">Forgot password? Reset</button>
-      </div>
       <p class="auth-footer-note">🛡️ Session expires after ${AUTH_CONFIG.SESSION_TIMEOUT_MINUTES} minutes of inactivity</p>
     </div>
   `;
@@ -441,14 +438,9 @@ function showLoginScreen() {
     }
   });
 
-  // Handle password reset
-  document.getElementById('reset-password-btn').addEventListener('click', () => {
-    if (confirm('⚠️ This will erase your current admin password.\nYou will need to set a new one.\n\nContinue?')) {
-      localStorage.removeItem(AUTH_CONFIG.HASH_KEY);
-      clearAttempts();
-      showSetupScreen();
-    }
-  });
+  // (No unauthenticated reset — password can only be changed
+  //  after login via the lock icon, or via browser console if forgotten:
+  //  localStorage.removeItem('cybrito_admin_hash')  then reload)
 }
 
 /**
