@@ -32,9 +32,6 @@
 // ─── CONFIGURATION ────────────────────────────────────────
 
 const AUTH_CONFIG = {
-  // localStorage key for the password hash
-  HASH_KEY: 'cybrito_admin_hash',
-
   // sessionStorage key for the active session
   SESSION_KEY: 'cybrito_admin_session',
 
@@ -50,33 +47,6 @@ const AUTH_CONFIG = {
   // localStorage key for tracking failed attempts
   ATTEMPTS_KEY: 'cybrito_admin_attempts',
 };
-
-
-// ════════════════════════════════════════════════════════════
-//  CRYPTO UTILITIES — SHA-256 Hashing
-// ════════════════════════════════════════════════════════════
-
-/**
- * Hashes a password string using SHA-256 via Web Crypto API.
- * Returns a hex-encoded hash string.
- *
- * @param {string} password - The plaintext password
- * @returns {Promise<string>} Hex-encoded SHA-256 hash
- */
-async function hashPassword(password) {
-  // Encode the password as UTF-8 bytes
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-
-  // Hash using SHA-256
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-
-  // Convert the hash buffer to a hex string
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-  return hashHex;
-}
 
 
 // ════════════════════════════════════════════════════════════
@@ -204,33 +174,24 @@ function checkLockout() {
 // ════════════════════════════════════════════════════════════
 
 /**
- * Checks if a password has been set up (hash exists in localStorage).
- * @returns {boolean}
- */
-function isPasswordSet() {
-  return !!localStorage.getItem(AUTH_CONFIG.HASH_KEY);
-}
-
-/**
- * Stores a new password hash.
- * @param {string} password - Plaintext password to hash and store
- */
-async function setPassword(password) {
-  const hash = await hashPassword(password);
-  localStorage.setItem(AUTH_CONFIG.HASH_KEY, hash);
-}
-
-/**
- * Verifies a password against the stored hash.
+ * Verifies a password against the securely encrypted Vercel Backend Single Source of Truth
  * @param {string} password - Plaintext password to verify
  * @returns {Promise<boolean>} True if password matches
  */
 async function verifyPassword(password) {
-  const storedHash = localStorage.getItem(AUTH_CONFIG.HASH_KEY);
-  if (!storedHash) return false;
-
-  const inputHash = await hashPassword(password);
-  return inputHash === storedHash;
+  try {
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${password}` }
+    });
+    if (res.status === 200) {
+      const data = await res.json();
+      return data.valid === true;
+    }
+  } catch (err) {
+    console.error("Backend auth verification failed or dropped.");
+  }
+  return false; // Fail securely
 }
 
 
@@ -240,111 +201,39 @@ async function verifyPassword(password) {
 
 /**
  * Main initialization — called when admin.html loads.
- * Decides whether to show login screen or admin panel.
+ * Decides whether to show login screen or admin panel natively from Backend single source of truth.
  */
-function initAuth() {
-  // If already authenticated with valid session → show admin
+async function initAuth() {
   if (isSessionValid()) {
     showAdminPanel();
     startSessionWatchdog();
     return;
   }
 
-  // Otherwise → show login gate
-  if (isPasswordSet()) {
+  try {
+    const res = await fetch('/api/auth');
+    if (!res.ok) throw new Error('Auth API error');
+    const data = await res.json();
+
+    if (data.passwordExists) {
+      showLoginScreen();
+    } else {
+      // 🚫 Production security constraint: Setup flows have been hard-deprecated.
+      document.body.innerHTML = `
+        <div style="color:#e2e8f0; font-family:sans-serif; text-align:center; margin-top:20vh; line-height:1.6;">
+          <h2 style="color:#ef4444;">Access Denied</h2>
+          <p>The <b>ADMIN_PASSWORD</b> environment variable is not configured.</p>
+          <p>Please log into your Vercel Dashboard and define it to enable the CMS.</p>
+        </div>
+      `;
+    }
+  } catch (err) {
+    console.error('Failed to communicate with Auth backend. Secure fail-open to Login.', err);
     showLoginScreen();
-  } else {
-    showSetupScreen();
   }
 }
 
-/**
- * Shows the password SETUP screen (first-time use).
- */
-function showSetupScreen() {
-  const loginGate = document.getElementById('auth-gate');
-  if (!loginGate) return;
-
-  loginGate.innerHTML = `
-    <div class="auth-card">
-      <div class="auth-icon">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <polyline points="9 12 11 14 15 10" />
-        </svg>
-      </div>
-      <h2>Set Up Admin Access</h2>
-      <p class="auth-subtitle">Create a password to protect your admin panel.<br>This is a one-time setup.</p>
-      <form id="setup-form" class="auth-form">
-        <div class="auth-field">
-          <label for="setup-password">New Password</label>
-          <div class="auth-input-wrap">
-            <input type="password" id="setup-password" placeholder="Enter a strong password" required minlength="6" autocomplete="new-password">
-            <button type="button" class="auth-toggle-vis" data-target="setup-password" aria-label="Toggle visibility">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div class="auth-field">
-          <label for="setup-confirm">Confirm Password</label>
-          <div class="auth-input-wrap">
-            <input type="password" id="setup-confirm" placeholder="Re-enter your password" required minlength="6" autocomplete="new-password">
-            <button type="button" class="auth-toggle-vis" data-target="setup-confirm" aria-label="Toggle visibility">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div class="auth-error" id="setup-error"></div>
-        <button type="submit" class="btn btn-primary auth-btn">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          Set Password & Enter
-        </button>
-      </form>
-      <p class="auth-footer-note">🔒 Password is hashed with SHA-256 — never stored in plaintext</p>
-    </div>
-  `;
-
-  loginGate.classList.add('active');
-  setupToggleVisibility();
-
-  // Handle setup form submission
-  document.getElementById('setup-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const pw = document.getElementById('setup-password').value;
-    const confirm = document.getElementById('setup-confirm').value;
-    const errorEl = document.getElementById('setup-error');
-
-    // Validation
-    if (pw.length < 6) {
-      errorEl.textContent = 'Password must be at least 6 characters.';
-      errorEl.classList.add('visible');
-      return;
-    }
-    if (pw !== confirm) {
-      errorEl.textContent = 'Passwords do not match.';
-      errorEl.classList.add('visible');
-      shakeForm();
-      return;
-    }
-
-    // Set the password and create session
-    await setPassword(pw);
-    createSession();
-    clearAttempts();
-    sessionStorage.setItem("admin_password", pw);
-    showAdminPanel();
-    startSessionWatchdog();
-  });
-}
+// DEPRECATED function `showSetupScreen()` was completely purged.
 
 /**
  * Shows the LOGIN screen (password already set).
@@ -404,7 +293,11 @@ function showLoginScreen() {
   document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const errorEl = document.getElementById('login-error');
-    const pw = document.getElementById('login-password').value;
+    const pwInput = document.getElementById('login-password');
+    const submitBtn = document.querySelector('.auth-btn');
+    const pw = pwInput.value;
+
+    errorEl.classList.remove('visible'); // ⚡ UX: Clear previous errors visually
 
     // Check lockout first
     const currentLockout = checkLockout();
@@ -414,28 +307,47 @@ function showLoginScreen() {
       return;
     }
 
-    // Verify password
-    const isValid = await verifyPassword(pw);
+    // ⚡ UX Improvement: Lock inputs entirely during flight request
+    submitBtn.innerHTML = '⏳ Verifying...';
+    submitBtn.disabled = true;
+    pwInput.disabled = true;
 
-    if (isValid) {
-      createSession();
-      clearAttempts();
-      sessionStorage.setItem("admin_password", pw);
-      showAdminPanel();
-      startSessionWatchdog();
-    } else {
-      recordFailedAttempt();
-      errorEl.textContent = '❌ Incorrect password. Please try again.';
-      errorEl.classList.add('visible');
-      shakeForm();
+    try {
+      // 🔒 Network POST Dispatch
+      const isValid = await verifyPassword(pw);
 
-      // Check if now locked out
+      if (isValid) {
+        createSession();
+        clearAttempts();
+        sessionStorage.setItem("admin_password", pw);
+        showAdminPanel();
+        startSessionWatchdog();
+      } else {
+        recordFailedAttempt();
+        errorEl.textContent = '❌ Incorrect password. Please try again.';
+        errorEl.classList.add('visible');
+        shakeForm();
+
+        // Check if now locked out
+        const postLockout = checkLockout();
+        if (postLockout.locked) {
+          errorEl.textContent = `🔒 Too many attempts. Locked for ${AUTH_CONFIG.LOCKOUT_MINUTES} minute(s).`;
+          startLockoutCountdown();
+        }
+      }
+    } finally {
+      // ⚡ UX Improvement: Restore UI seamlessly regardless of error or network drop
       const postLockout = checkLockout();
-      if (postLockout.locked) {
-        errorEl.textContent = `🔒 Too many attempts. Locked for ${AUTH_CONFIG.LOCKOUT_MINUTES} minute(s).`;
-        document.getElementById('login-password').disabled = true;
-        document.querySelector('.auth-btn').disabled = true;
-        startLockoutCountdown();
+      if (!postLockout.locked) {
+        submitBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/>
+          </svg>
+          Sign In
+        `;
+        submitBtn.disabled = false;
+        pwInput.disabled = false;
+        pwInput.focus();
       }
     }
   });
@@ -479,30 +391,8 @@ function logout() {
 /**
  * Changes the admin password (available from within the admin panel).
  */
-async function changePassword() {
-  const currentPw = prompt('Enter your CURRENT password:');
-  if (!currentPw) return;
-
-  const isValid = await verifyPassword(currentPw);
-  if (!isValid) {
-    alert('❌ Current password is incorrect.');
-    return;
-  }
-
-  const newPw = prompt('Enter your NEW password (min 6 characters):');
-  if (!newPw || newPw.length < 6) {
-    alert('❌ Password must be at least 6 characters.');
-    return;
-  }
-
-  const confirmPw = prompt('Confirm your NEW password:');
-  if (newPw !== confirmPw) {
-    alert('❌ Passwords do not match.');
-    return;
-  }
-
-  await setPassword(newPw);
-  alert('✅ Password changed successfully!');
+function changePassword() {
+  alert('🔐 Security Policy: Admin Password is locked via Server Environment Variables. To change it, please update the ADMIN_PASSWORD securely in your Vercel Dashboard and redeploy.');
 }
 
 
