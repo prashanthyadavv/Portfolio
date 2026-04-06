@@ -56,7 +56,7 @@
           "labelType": "finding",
           "title": "IDOR Vulnerability in Faculty Verification SSE Endpoint",
           "description": "Unauthorized access to faculty verification data via IDOR in SSE endpoint. User IDs could be manipulated to retrieve sensitive details of other users.",
-          "link": "projects/IDOR_vuln.html",
+          "link": "projects/IDOR_Vuln.html",
           "linkText": "View Detailed Report"
         }
       ]
