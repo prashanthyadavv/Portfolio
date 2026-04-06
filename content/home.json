@@ -62,6 +62,14 @@
       "description": "Project focused on analyzing behavioral patterns of suspicious files through sandbox-based execution monitoring.",
       "link": "",
       "linkText": ""
+    },
+    {
+      "id": "idor-home",
+      "label": "Technical Report",
+      "title": "IDOR Vulnerability — SSE Endpoint",
+      "description": "Insecure Direct Object Reference in faculty verification SSE endpoint exposing user-specific verification data.",
+      "link": "projects/IDOR_Vuln.html",
+      "linkText": "Detailed Report →"
     }
   ],
 
