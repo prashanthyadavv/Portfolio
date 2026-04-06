@@ -57,7 +57,12 @@ async function saveAndDeploy(filename, data) {
     return true;
   } catch (error) {
     console.error('[CMS Sync]', error);
-    showToast(`❌ Failed: ${error.message}`, true);
+    // 🟢 Improvement: Handle Multi-Tab / SHA Conflict Errors
+    if (error.message.includes('409') || error.message.includes('Conflict')) {
+      alert("❗ Data Conflict: The file was modified in another session. Please reload to fetch the latest changes.");
+    } else {
+      showToast(`❌ Failed: ${error.message}`, true);
+    }
     return false;
   }
 }

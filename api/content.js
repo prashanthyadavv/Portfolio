@@ -1,6 +1,8 @@
+import path from 'path';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
-  
+
   // 1. Secure Authentication via ENV
   const authHeader = req.headers.authorization;
   if (!authHeader || authHeader !== `Bearer ${process.env.ADMIN_PASSWORD}`) {
@@ -21,14 +23,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    const filePath = `content/${filename}`;
+    // 🔴 Security Fix: Prevent Path Traversal by stripping directory paths
+    const safeFilename = path.basename(filename);
+    const filePath = `content/${safeFilename}`;
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
-    
+
     // Check if file exists to get current SHA (required by GitHub API for updates)
     const getRes = await fetch(`${url}?ref=${branch}`, {
       headers: { 'Authorization': `Bearer ${githubToken}`, 'User-Agent': 'CMS-Proxy' }
     });
-    
+
     let sha = null;
     if (getRes.ok) {
       const data = await getRes.json();
@@ -53,7 +57,7 @@ export default async function handler(req, res) {
 
     if (!putRes.ok) throw new Error(await putRes.text());
     res.status(200).json({ success: true, message: `Successfully updated ${filename}` });
-    
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

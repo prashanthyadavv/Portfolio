@@ -1,3 +1,5 @@
+import path from 'path';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   
@@ -18,14 +20,34 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Vercel Environment Variables missing for GitHub API.' });
   }
 
-  // Create unique filename to prevent overwrite
+  // 🔴 Security Fix: Validate Base64 payload and MIME type
+  const b64Parts = base64Data.split(',');
+  if (b64Parts.length !== 2) {
+    return res.status(400).json({ error: 'Malformed base64 payload' });
+  }
+
+  const mimeMatch = b64Parts[0].match(/data:(image\/(png|jpeg|jpg|webp));base64/i);
+  if (!mimeMatch) {
+    return res.status(400).json({ error: 'Invalid or unsupported image type. Only PNG, JPG, and WEBP are allowed.' });
+  }
+
+  // 🔴 Security Fix: Restrict to safe extensions
+  const originalExt = path.extname(filename).toLowerCase();
+  const allowedExtensions = ['.png', '.jpg', '.jpeg', '.webp'];
+  
+  if (!allowedExtensions.includes(originalExt)) {
+    return res.status(400).json({ error: 'Invalid file extension. Only PNG, JPG, and WEBP are allowed.' });
+  }
+
+  const baseFilename = path.basename(filename, originalExt).replace(/[^a-z0-9]/gi, '_').toLowerCase();
+  
   const timestamp = Date.now();
-  const safeFilename = filename.replace(/[^a-z0-9.]/gi, '_').toLowerCase();
+  const safeFilename = `${baseFilename}${originalExt}`;
   const filePath = `images/uploads/${timestamp}-${safeFilename}`;
 
   try {
-    // Strip the "data:image/png;base64," URI prefix to upload clean binary
-    const b64String = base64Data.split(',')[1];
+    // Extract clean binary string
+    const b64String = b64Parts[1];
 
     const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
       method: 'PUT',

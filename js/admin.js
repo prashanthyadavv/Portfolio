@@ -245,29 +245,42 @@ window.editItem = function(section, id) {
 window.deleteItem = async function(section, id) {
   if (!confirm("🚨 Are you sure you want to delete this permanently?")) return;
   
+  // 🟡 Bug Fix: Prevent Ghost Deletions with State Rollback
   if (section === 'projects') {
+    const backup = JSON.parse(JSON.stringify(projectsData));
     projectsData.sections.forEach(s => { s.items = s.items.filter(i => i.id !== id); });
-    await saveAndDeploy('projects.json', projectsData);
+    const success = await saveAndDeploy('projects.json', projectsData);
+    if (!success) projectsData = backup;
     renderProjectsList();
   } else if (section === 'writeups') {
+    const backup = JSON.parse(JSON.stringify(writeupsData));
     writeupsData.items = writeupsData.items.filter(i => i.id !== id);
-    await saveAndDeploy('writeups.json', writeupsData);
+    const success = await saveAndDeploy('writeups.json', writeupsData);
+    if (!success) writeupsData = backup;
     renderWriteupsList();
   } else if (section === 'activity') {
+    const backup = JSON.parse(JSON.stringify(activityData));
     activityData.timeline.forEach(s => { s.items = s.items.filter(i => i.id !== id); });
-    await saveAndDeploy('activity.json', activityData);
+    const success = await saveAndDeploy('activity.json', activityData);
+    if (!success) activityData = backup;
     renderActivityList();
   } else if (section === 'about_exp') {
+    const backup = JSON.parse(JSON.stringify(aboutData));
     aboutData.experience = aboutData.experience.filter(i => i.id !== id);
-    await saveAndDeploy('about.json', aboutData);
+    const success = await saveAndDeploy('about.json', aboutData);
+    if (!success) aboutData = backup;
     renderAboutList();
   } else if (section === 'contact') {
+    const backup = JSON.parse(JSON.stringify(contactData));
     contactData.links = contactData.links.filter(i => i.id !== id);
-    await saveAndDeploy('contact.json', contactData);
+    const success = await saveAndDeploy('contact.json', contactData);
+    if (!success) contactData = backup;
     renderContactList();
   } else if (section === 'certifications') {
+    const backup = JSON.parse(JSON.stringify(homeData));
     homeData.certifications = homeData.certifications.filter(i => i.id !== id);
-    await saveAndDeploy('home.json', homeData);
+    const success = await saveAndDeploy('home.json', homeData);
+    if (!success) homeData = backup;
     renderHomePreview();
   }
 }
@@ -275,66 +288,113 @@ window.deleteItem = async function(section, id) {
 function setupForms() {
   document.getElementById('add-project-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const sectionId = document.getElementById('proj-section').value;
-    const section = projectsData.sections.find(s => s.id === sectionId);
-    if (!section) return showToast('Please select a section', true);
+    // 🟢 Improvement: Visual feedback and unclickable states
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = "⏳ Saving...";
+    submitBtn.disabled = true;
 
-    const descHTML = quillProjectDesc.root.innerHTML;
-    const title = document.getElementById('proj-title').value;
+    try {
+      const sectionId = document.getElementById('proj-section').value;
+      const section = projectsData.sections.find(s => s.id === sectionId);
+      if (!section) return showToast('Please select a section', true);
 
-    const modifiedItem = {
-      id: currentEditId ? currentEditId : slugify(title) + '-' + Date.now().toString().slice(-4),
-      label: document.getElementById('proj-label').value,
-      labelType: document.getElementById('proj-label-type').value,
-      title: title,
-      description: descHTML,
-      link: document.getElementById('proj-link').value,
-      linkText: document.getElementById('proj-link-text').value
-    };
+      const descHTML = quillProjectDesc.root.innerHTML;
+      const title = document.getElementById('proj-title').value;
 
-    if (currentEditId) {
-       let found = false;
-       projectsData.sections.forEach(s => {
-         const idx = s.items.findIndex(i => i.id === currentEditId);
-         if (idx !== -1) { s.items[idx] = modifiedItem; found = true; }
-       });
-       if(!found) section.items.push(modifiedItem);
-       currentEditId = null; 
-       document.querySelector('#add-project-form button').innerText = "Add Project";
-    } else {
-       section.items.push(modifiedItem);
+      // 🟡 Bug Fix: Secure Unique ID Generation
+      const safeTitle = title.trim() || 'untitled';
+      const modifiedItem = {
+        id: currentEditId ? currentEditId : slugify(safeTitle) + '-' + Math.random().toString(36).substr(2, 6) + Date.now().toString().slice(-4),
+        label: document.getElementById('proj-label').value,
+        labelType: document.getElementById('proj-label-type').value,
+        title: title,
+        description: descHTML,
+        link: document.getElementById('proj-link').value,
+        linkText: document.getElementById('proj-link-text').value
+      };
+
+      const backup = JSON.parse(JSON.stringify(projectsData));
+
+      if (currentEditId) {
+         // 🟡 Bug Fix: Move items smoothly between categories
+         projectsData.sections.forEach(s => {
+           s.items = s.items.filter(i => i.id !== currentEditId);
+         });
+         section.items.push(modifiedItem);
+         currentEditId = null; 
+      } else {
+         section.items.push(modifiedItem);
+      }
+      
+      const success = await saveAndDeploy('projects.json', projectsData);
+      if (success) {
+        e.target.reset();
+        quillProjectDesc.root.innerHTML = '';
+      } else {
+        projectsData = backup;
+      }
+      renderProjectsList();
+    } finally {
+      submitBtn.innerText = "Add Project";
+      submitBtn.disabled = false;
     }
-    
-    await saveAndDeploy('projects.json', projectsData);
-    renderProjectsList();
-    e.target.reset();
-    quillProjectDesc.root.innerHTML = '';
   });
 
   document.getElementById('add-cert-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const title = document.getElementById('cert-title').value;
-    const newCert = {
-      id: slugify(title) + '-' + Date.now().toString().slice(-4),
-      title: title,
-      issuer: document.getElementById('cert-issuer').value,
-      image: document.getElementById('cert-image').value
-    };
-    homeData.certifications.push(newCert);
-    await saveAndDeploy('home.json', homeData);
-    renderHomePreview();
-    e.target.reset();
-    document.getElementById('image-preview-container').style.display = 'none';
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = "⏳ Saving...";
+    submitBtn.disabled = true;
+
+    try {
+      const title = document.getElementById('cert-title').value;
+      const safeTitle = title.trim() || 'untitled';
+      const newCert = {
+        id: slugify(safeTitle) + '-' + Math.random().toString(36).substr(2, 6) + Date.now().toString().slice(-4),
+        title: title,
+        issuer: document.getElementById('cert-issuer').value,
+        image: document.getElementById('cert-image').value
+      };
+
+      const backup = JSON.parse(JSON.stringify(homeData));
+      homeData.certifications.push(newCert);
+
+      const success = await saveAndDeploy('home.json', homeData);
+      if (success) {
+        e.target.reset();
+        document.getElementById('image-preview-container').style.display = 'none';
+      } else {
+        homeData = backup;
+      }
+      renderHomePreview();
+    } finally {
+      submitBtn.innerText = "Add Certification";
+      submitBtn.disabled = false;
+    }
   });
 
   // Handle other forms dynamically as well (simplified to save space)
   document.getElementById('edit-hero-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    homeData.hero.firstName = document.getElementById('hero-firstname').value;
-    homeData.hero.lastName = document.getElementById('hero-lastname').value;
-    homeData.hero.subtitle = document.getElementById('hero-subtitle').value;
-    homeData.hero.description = document.getElementById('hero-desc').value;
-    await saveAndDeploy('home.json', homeData);
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = "⏳ Saving...";
+    submitBtn.disabled = true;
+
+    try {
+      const backup = JSON.parse(JSON.stringify(homeData));
+      homeData.hero.firstName = document.getElementById('hero-firstname').value;
+      homeData.hero.lastName = document.getElementById('hero-lastname').value;
+      homeData.hero.subtitle = document.getElementById('hero-subtitle').value;
+      homeData.hero.description = document.getElementById('hero-desc').value;
+      
+      const success = await saveAndDeploy('home.json', homeData);
+      if (!success) {
+        homeData = backup;
+      }
+    } finally {
+      submitBtn.innerText = "Update Hero";
+      submitBtn.disabled = false;
+    }
   });
 }
 
@@ -378,7 +438,11 @@ function setupLivePreview() {
 function updateLivePreview(section) {
   const pb = document.getElementById('preview-body');
   if(!pb) return;
-  if(section === 'projects') pb.innerHTML = `<div class="card"><h3>${document.getElementById('proj-title')?.value || 'Title'}</h3><div>${window.quillProjectDesc?.root.innerHTML || ''}</div></div>`;
+  if(section === 'projects') {
+    // 🔴 Security Fix: Escape HTML in Title to prevent DOM XSS
+    const safeTitle = escapeHTML(document.getElementById('proj-title')?.value || 'Title');
+    pb.innerHTML = `<div class="card"><h3>${safeTitle}</h3><div>${window.quillProjectDesc?.root.innerHTML || ''}</div></div>`;
+  }
 }
 
 function slugify(text) { return text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').substring(0, 50); }
