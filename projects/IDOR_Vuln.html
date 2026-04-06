@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="IDOR vulnerability in faculty verification SSE endpoint — detailed report by Cybrito.">
+    <meta name="keywords" content="IDOR, broken access control, API security, SSE vulnerability">
+    <meta name="author" content="Prashanth Yadav Pittakala">
+    <title>IDOR Vulnerability — SSE Endpoint | Cybrito</title>
+    <link rel="icon" type="image/png" href="../images/profile.png">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="nav-brand">Cybrito</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../writeups.html">Writeups</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <div class="detail-wrapper">
+            <div class="container">
+
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb-nav">
+                    <a href="../index.html">Home</a> /
+                    <a href="../writeups.html">Writeups</a> /
+                    <span>IDOR Report</span>
+                </nav>
+
+                <div class="detail-card">
+
+                    <!-- Header -->
+                    <div class="detail-header">
+                        <span class="card-label">Technical Report</span>
+                        <h1>IDOR Vulnerability — Faculty Verification SSE Endpoint</h1>
+                        <div class="detail-meta">
+                            <span class="severity high">High Severity</span>
+                            <span>Category: Broken Access Control</span>
+                            <span>Context: API Security Testing</span>
+                        </div>
+                    </div>
+
+                    <!-- Overview -->
+                    <section class="detail-section">
+                        <h2>Overview</h2>
+                        <p>
+                            During testing of the faculty verification flow, an Insecure Direct Object Reference (IDOR)
+                            vulnerability was identified in a Server-Sent Events (SSE) endpoint. The endpoint exposed
+                            user-specific verification data without validating whether the requester was authorized to
+                            access the provided userId.
+                        </p>
+                    </section>
+
+                    <!-- Technical Description -->
+                    <section class="detail-section">
+                        <h2>Technical Description</h2>
+                        <p>
+                            The endpoint:
+                            <code>/api/faculty/college-verification/stream/{userId}</code>
+                            streams verification data for a given userId. However, no authorization checks were
+                            enforced.
+                        </p>
+                        <p>
+                            By modifying the userId parameter, it was possible to retrieve verification data of other
+                            users, including:
+                        </p>
+                        <ul>
+                            <li>College name</li>
+                            <li>Verification status</li>
+                            <li>Uploaded file names (logo and ID proof)</li>
+                            <li>Timestamps and system messages</li>
+                        </ul>
+                    </section>
+
+                    <!-- Steps -->
+                    <section class="detail-section">
+                        <h2>Steps to Reproduce</h2>
+                        <div class="code-block">
+                            GET /api/faculty/college-verification/stream/73857844
+                            Accept: text/event-stream
+                        </div>
+
+                        <ol>
+                            <li>Send request to the SSE endpoint with a valid userId.</li>
+                            <li>Observe verification data in the response.</li>
+                            <li>Modify the userId parameter.</li>
+                            <li>Access data of other users without authorization.</li>
+                        </ol>
+                    </section>
+
+                    <!-- Impact -->
+                    <section class="detail-section">
+                        <h2>Impact</h2>
+                        <ul>
+                            <li>Unauthorized access to user verification data</li>
+                            <li>User ID enumeration</li>
+                            <li>Exposure of uploaded document references</li>
+                            <li>Potential large-scale data harvesting via SSE</li>
+                        </ul>
+                    </section>
+
+                    <!-- Remediation -->
+                    <section class="detail-section">
+                        <h2>Remediation</h2>
+                        <ul>
+                            <li>Validate user authorization for requested userId</li>
+                            <li>Restrict SSE endpoints to authenticated users</li>
+                            <li>Use UUIDs instead of sequential IDs</li>
+                            <li>Avoid exposing sensitive file references</li>
+                        </ul>
+                    </section>
+
+                    <!-- Back Button -->
+                    <div style="margin-top: 3rem; text-align: center;">
+                        <a href="../writeups.html" class="btn btn-outline">
+                            ← Back to Writeups
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <span>&copy; 2026 Prashanth Yadav Pittakala — Cybrito</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
