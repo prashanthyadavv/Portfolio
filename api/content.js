@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const githubToken = process.env.GITHUB_PAT;
   const owner = process.env.GITHUB_OWNER;
   const repo = process.env.GITHUB_REPO;
-  const branch = process.env.GITHUB_BRANCH || 'main'; // Change to master if needed
+  const branch = process.env.GITHUB_BRANCH || 'master';
 
   if (!githubToken || !owner || !repo) {
     return res.status(500).json({ error: 'Vercel Environment Variables missing for GitHub API.' });
