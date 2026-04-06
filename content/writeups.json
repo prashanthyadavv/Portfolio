@@ -38,6 +38,18 @@
       "link": "projects/network-finally-lit-up.html",
       "linkText": "Read Writeup",
       "date": "January 2026"
+    },
+    {
+      "id": "idor-sse-writeup",
+      "label": "Vulnerability Report",
+      "labelType": "finding",
+      "title": "IDOR in Faculty Verification SSE Endpoint",
+      "description": "Unauthorized access to faculty verification data via IDOR. Manipulating userId exposed sensitive user information without proper authorization checks.",
+      "severity": "High",
+      "severityClass": "high",
+      "link": "projects/idor-sse-report.html",
+      "linkText": "Read Full Report →",
+      "date": ""
     }
   ]
 }
