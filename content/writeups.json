@@ -47,7 +47,7 @@
       "description": "Unauthorized access to faculty verification data via IDOR. Manipulating userId exposed sensitive user information without proper authorization checks.",
       "severity": "High",
       "severityClass": "high",
-      "link": "projects/idor-sse-report.html",
+      "link": "projects/IDOR_Vuln.html",
       "linkText": "Read Full Report →",
       "date": ""
     }
