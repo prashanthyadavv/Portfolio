@@ -29,7 +29,7 @@ const GITHUB_CONFIG = {
   // Default repo — auto-detected from your git remote
   DEFAULT_OWNER: 'prashanthyadavv',
   DEFAULT_REPO: 'Portfolio',
-  DEFAULT_BRANCH: 'main',
+  DEFAULT_BRANCH: 'master',
 
   // localStorage keys
   TOKEN_KEY: 'cybrito_github_token',
