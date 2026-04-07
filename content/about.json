@@ -1,25 +1,11 @@
 {
   "pageTitle": "About Me",
   "pageDescription": "Professional background, experience, and technical skills.",
-
   "summary": [
     "Cybrito is a personal cybersecurity research and development initiative founded by Prashanth Yadav Pittakala.",
     "Cybersecurity intern with practical experience in manual testing and vulnerability assessments. Experienced in identifying authentication and input validation weaknesses and documenting structured security reports."
   ],
-
   "experience": [
-    {
-      "id": "uptoskills",
-      "company": "UptoSkills",
-      "role": "Cyber Security Intern",
-      "period": "Dec 2025 – Mar 2026",
-      "responsibilities": [
-        "Conducted manual web application testing",
-        "Identified authentication weakness due to missing rate limiting",
-        "Identified improper server-side input validation issue",
-        "Submitted structured vulnerability reports with severity, impact, and remediation steps"
-      ]
-    },
     {
       "id": "apexplanet",
       "company": "ApexPlanet Software Pvt. Ltd",
@@ -28,9 +14,20 @@
       "responsibilities": [
         "Virtual internship focused on cybersecurity fundamentals and ethical hacking practices"
       ]
+    },
+    {
+      "id": "uptoskills",
+      "company": "UptoSkills",
+      "role": "Cyber Security Intern",
+      "period": "Jan 2026 – Ongoing",
+      "responsibilities": [
+        "Conducted manual web application testing",
+        "Identified authentication weakness due to missing rate limiting",
+        "Identified improper server-side input validation issue",
+        "Submitted structured vulnerability reports with severity, impact, and remediation steps"
+      ]
     }
   ],
-
   "leadership": [
     {
       "id": "data-nexus",
@@ -45,19 +42,39 @@
       ]
     }
   ],
-
   "skills": [
     {
       "category": "Security Tools",
-      "tags": ["Burp Suite (Proxy, Intruder)", "Nmap", "Wireshark", "Metasploit"]
+      "tags": [
+        "Burp Suite (Proxy, Intruder)",
+        "Nmap",
+        "Wireshark",
+        "Metasploit"
+      ]
     },
     {
       "category": "Technologies",
-      "tags": ["Linux Command Line", "Bash Scripting", "Python", "C", "Java", "HTML", "CSS", "MySQL", "Git", "GitHub", "Linux", "Windows"]
+      "tags": [
+        "Linux Command Line",
+        "Bash Scripting",
+        "Python",
+        "C",
+        "Java",
+        "HTML",
+        "CSS",
+        "MySQL",
+        "Git",
+        "GitHub",
+        "Linux",
+        "Windows"
+      ]
     },
     {
       "category": "Learning Platforms",
-      "tags": ["TryHackMe", "NPTEL Certifications"]
+      "tags": [
+        "TryHackMe",
+        "NPTEL Certifications"
+      ]
     }
   ]
 }
