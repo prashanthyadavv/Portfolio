@@ -58,6 +58,15 @@
           "description": "Unauthorized access to faculty verification data via IDOR in SSE endpoint. User IDs could be manipulated to retrieve sensitive details of other users.",
           "link": "projects/IDOR_Vuln.html",
           "linkText": "View Detailed Report"
+        },
+        {
+          "id": "preethi-8pf9l10649",
+          "label": "in progress",
+          "labelType": "finding",
+          "title": "preethi",
+          "description": "<p>it is a project based on my personal life.it is very personal but i make it public.</p>",
+          "link": "",
+          "linkText": ""
         }
       ]
     }
