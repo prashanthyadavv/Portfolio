@@ -631,6 +631,7 @@ async function handleImageUpload(fileInput) {
 function setupLivePreview() {
   const formFieldMap = {
     'projects': ['proj-section', 'proj-title', 'proj-label', 'proj-desc', 'proj-link'],
+    'writeups': ['wu-title', 'wu-label', 'wu-desc', 'wu-severity', 'wu-date', 'wu-link'],
     'home': ['hero-firstname', 'hero-lastname', 'hero-desc', 'cert-title']
   };
   Object.entries(formFieldMap).forEach(([section, fieldIds]) => {
@@ -644,10 +645,61 @@ function setupLivePreview() {
 function updateLivePreview(section) {
   const pb = document.getElementById('preview-body');
   if(!pb) return;
+  
   if(section === 'projects') {
-    // 🔴 Security Fix: Escape HTML in Title to prevent DOM XSS
-    const safeTitle = escapeHTML(document.getElementById('proj-title')?.value || 'Title');
-    pb.innerHTML = `<div class="card"><h3>${safeTitle}</h3><div>${window.quillProjectDesc?.root.innerHTML || ''}</div></div>`;
+    const title = escapeHTML(document.getElementById('proj-title')?.value || 'Project Title');
+    const label = escapeHTML(document.getElementById('proj-label')?.value || 'Label');
+    const labelType = escapeHTML(document.getElementById('proj-label-type')?.value || 'project');
+    const link = escapeHTML(document.getElementById('proj-link')?.value || '');
+    const linkText = escapeHTML(document.getElementById('proj-link-text')?.value || 'View →');
+    
+    pb.innerHTML = `
+      <div class="card">
+        ${label ? `<span class="card-label ${labelType}">${label}</span>` : ''}
+        <h3>${title}</h3>
+        <div class="quill-content" style="margin-bottom: 1rem;">${window.quillProjectDesc?.root.innerHTML || ''}</div>
+        ${link ? `<a href="${link}" class="card-link" onclick="event.preventDefault()">${linkText}</a>` : ''}
+      </div>
+    `;
+  } else if(section === 'writeups') {
+    const title = escapeHTML(document.getElementById('wu-title')?.value || 'Writeup Title');
+    const label = escapeHTML(document.getElementById('wu-label')?.value || 'Writeup');
+    const date = escapeHTML(document.getElementById('wu-date')?.value || '');
+    const severity = escapeHTML(document.getElementById('wu-severity')?.value || '');
+    let sevClass = '';
+    if(severity === 'Critical' || severity === 'High') sevClass = 'high';
+    else if(severity === 'Medium') sevClass = 'medium';
+    else if(severity === 'Low' || severity === 'Informational') sevClass = 'low';
+    
+    const link = escapeHTML(document.getElementById('wu-link')?.value || '');
+    const linkText = escapeHTML(document.getElementById('wu-link-text')?.value || 'Read Report →');
+    
+    pb.innerHTML = `
+      <div class="card">
+        ${label ? `<span class="card-label finding">${label}</span>` : ''}
+        <h3>${title}</h3>
+        ${date ? `<p class="writeup-date">${date}</p>` : ''}
+        <div class="quill-content" style="margin-bottom: 1rem;">${window.quillWriteupDesc?.root.innerHTML || ''}</div>
+        ${severity ? `
+          <div style="margin-bottom: 0.75rem;">
+            <span class="severity ${sevClass}">${severity} Severity</span>
+          </div>
+        ` : ''}
+        ${link ? `<a href="${link}" class="card-link" onclick="event.preventDefault()">${linkText}</a>` : ''}
+      </div>
+    `;
+  } else if(section === 'home') {
+    const fname = escapeHTML(document.getElementById('hero-firstname')?.value || 'First');
+    const lname = escapeHTML(document.getElementById('hero-lastname')?.value || 'Last');
+    const sub = escapeHTML(document.getElementById('hero-subtitle')?.value || 'Subtitle');
+    const desc = escapeHTML(document.getElementById('hero-desc')?.value || 'Description');
+    pb.innerHTML = `
+      <div style="background: var(--bg-card); padding: 20px; border-radius: 8px;">
+        <h1 style="font-size: 2rem; margin-bottom: 10px;">${fname} <span style="color: var(--primary);">${lname}</span></h1>
+        <p style="color: var(--text-muted); margin-bottom: 15px;">${sub}</p>
+        <p>${desc}</p>
+      </div>
+    `;
   }
 }
 
