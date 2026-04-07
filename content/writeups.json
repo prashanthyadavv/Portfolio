@@ -3,6 +3,18 @@
   "pageDescription": "Structured vulnerability reports and technical documentation from authorized testing.",
   "items": [
     {
+      "id": "test-zbs2973438",
+      "title": "test",
+      "label": "test label",
+      "labelType": "finding",
+      "description": "<p>test desc</p>",
+      "severity": "",
+      "severityClass": "",
+      "date": "date",
+      "link": "",
+      "linkText": ""
+    },
+    {
       "id": "brute-force-writeup",
       "label": "Vulnerability Report",
       "labelType": "finding",
