@@ -1,8 +1,19 @@
 {
   "pageTitle": "Writeups",
   "pageDescription": "Structured vulnerability reports and technical documentation from authorized testing.",
-
   "items": [
+    {
+      "id": "test-ivgio56464",
+      "title": "test",
+      "label": "test label",
+      "labelType": "finding",
+      "description": "<p>testings</p>",
+      "severity": "",
+      "severityClass": "",
+      "date": "7th",
+      "link": "",
+      "linkText": ""
+    },
     {
       "id": "brute-force-writeup",
       "label": "Vulnerability Report",
