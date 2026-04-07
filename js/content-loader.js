@@ -32,7 +32,9 @@ async function loadContent(filename) {
   try {
     // Use absolute path from site root — works on localhost,
     // Vercel, GitHub Pages, Netlify, and any static host.
-    const response = await fetch('/content/' + filename);
+    // ADDED: Cache-busting timestamp to prevent "ghost bug" displaying old content after an update.
+    const url = `/content/${filename}?t=${new Date().getTime()}`;
+    const response = await fetch(url, { cache: 'no-store' });
 
     // Check for errors (e.g. 404 file not found)
     if (!response.ok) {

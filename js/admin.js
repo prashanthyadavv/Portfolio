@@ -66,6 +66,14 @@ function setupTabs() {
   const tabs = document.querySelectorAll('.admin-tab');
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
+      // 🟢 Fix: Reset editing state to prevent accidentally overwriting an item across tabs
+      currentEditId = null;
+      document.querySelectorAll('.admin-form').forEach(f => f.reset());
+      const pBtn = document.querySelector('#add-project-form button'); if(pBtn) pBtn.innerText = 'Add Project';
+      const wBtn = document.querySelector('#add-writeup-form button'); if(wBtn) wBtn.innerText = 'Add Writeup';
+      if (window.quillProjectDesc) window.quillProjectDesc.root.innerHTML = '';
+      if (window.quillWriteupDesc) window.quillWriteupDesc.root.innerHTML = '';
+
       tabs.forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
       tab.classList.add('active');
@@ -217,6 +225,14 @@ window.editItem = function(section, id) {
   if (section === 'projects') {
     const proj = projectsData.sections.flatMap(s => s.items).find(i => i.id === id);
     if(proj) {
+      // 🟢 Bug Fix: Set the correct section dropdown when editing
+      let matchedSectionId = '';
+      projectsData.sections.forEach(s => {
+        if (s.items.some(i => i.id === id)) matchedSectionId = s.id;
+      });
+      const sectionSelect = document.getElementById('proj-section');
+      if (sectionSelect && matchedSectionId) sectionSelect.value = matchedSectionId;
+
       document.getElementById('proj-title').value = proj.title;
       document.getElementById('proj-label').value = proj.label || '';
       document.getElementById('proj-label-type').value = proj.labelType || 'project';
@@ -237,7 +253,39 @@ window.editItem = function(section, id) {
       document.getElementById('wu-link').value = item.link || '';
       document.getElementById('wu-link-text').value = item.linkText || '';
       const submitBtn = document.querySelector('#add-writeup-form button');
-      submitBtn.innerText = "🚀 Update Writeup";
+      if (submitBtn) submitBtn.innerText = "🚀 Update Writeup";
+    }
+  } else if (section === 'activity') {
+    const group = activityData.timeline.find(g => g.items.some(i => i.id === id));
+    if (group) {
+        const item = group.items.find(i => i.id === id);
+        document.getElementById('act-year').value = group.year;
+        document.getElementById('act-date').value = item.date;
+        document.getElementById('act-event').value = item.event;
+        document.getElementById('act-desc').value = item.description || '';
+        const submitBtn = document.querySelector('#add-activity-form button');
+        if (submitBtn) submitBtn.innerText = "🚀 Update Activity";
+    }
+  } else if (section === 'about_exp') {
+    const item = aboutData.experience.find(i => i.id === id);
+    if (item) {
+        document.getElementById('exp-company').value = item.company;
+        document.getElementById('exp-role').value = item.role;
+        document.getElementById('exp-period').value = item.period;
+        document.getElementById('exp-responsibilities').value = (item.responsibilities || []).join('\n');
+        const submitBtn = document.querySelector('#add-experience-form button');
+        if (submitBtn) submitBtn.innerText = "🚀 Update Experience";
+    }
+  } else if (section === 'contact') {
+    const item = contactData.links.find(i => i.id === id);
+    if (item) {
+        document.getElementById('contact-label').value = item.label;
+        document.getElementById('contact-icon').value = item.icon || 'email';
+        document.getElementById('contact-value').value = item.value;
+        document.getElementById('contact-url').value = item.url;
+        document.getElementById('contact-type').value = item.type || 'external';
+        const submitBtn = document.querySelector('#add-contact-form button');
+        if (submitBtn) submitBtn.innerText = "🚀 Update Link";
     }
   }
 }
@@ -373,7 +421,165 @@ function setupForms() {
     }
   });
 
-  // Handle other forms dynamically as well (simplified to save space)
+  // ====== 🟢 Bug Fix: Adding Missing Submit Handlers (Writeups, Activity, Experiemce, Contact) ======
+  document.getElementById('add-writeup-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = "⏳ Saving...";
+    submitBtn.disabled = true;
+
+    try {
+      const title = document.getElementById('wu-title').value;
+      const safeTitle = title.trim() || 'untitled';
+      let sevClass = '';
+      const sev = document.getElementById('wu-severity').value;
+      if(sev === 'Critical' || sev === 'High') sevClass = 'high';
+      else if(sev === 'Medium') sevClass = 'medium';
+      else if(sev === 'Low' || sev === 'Informational') sevClass = 'low';
+
+      const modifiedItem = {
+        id: currentEditId ? currentEditId : slugify(safeTitle) + '-' + Math.random().toString(36).substr(2, 6) + Date.now().toString().slice(-4),
+        title: title,
+        label: document.getElementById('wu-label').value,
+        labelType: 'finding',
+        description: quillWriteupDesc.root.innerHTML,
+        severity: sev,
+        severityClass: sevClass,
+        date: document.getElementById('wu-date').value,
+        link: document.getElementById('wu-link').value,
+        linkText: document.getElementById('wu-link-text').value
+      };
+
+      const backup = JSON.parse(JSON.stringify(writeupsData));
+      if (currentEditId) {
+         writeupsData.items = writeupsData.items.filter(i => i.id !== currentEditId);
+         currentEditId = null; 
+      }
+      writeupsData.items.unshift(modifiedItem);
+
+      const success = await saveAndDeploy('writeups.json', writeupsData);
+      if (success) {
+        e.target.reset();
+        quillWriteupDesc.root.innerHTML = '';
+      } else {
+        writeupsData = backup;
+      }
+      renderWriteupsList();
+    } finally {
+      submitBtn.innerText = "Add Writeup";
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('add-activity-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = "⏳ Saving...";
+    submitBtn.disabled = true;
+
+    try {
+      const year = document.getElementById('act-year').value.trim();
+      const modifiedItem = {
+        id: currentEditId ? currentEditId : 'act-' + Math.random().toString(36).substr(2, 6),
+        date: document.getElementById('act-date').value,
+        event: document.getElementById('act-event').value,
+        description: document.getElementById('act-desc').value
+      };
+
+      const backup = JSON.parse(JSON.stringify(activityData));
+      
+      let yearGroup = activityData.timeline.find(g => g.year === year);
+      
+      if (currentEditId) {
+         activityData.timeline.forEach(g => {
+             g.items = g.items.filter(i => i.id !== currentEditId);
+         });
+         currentEditId = null; 
+      }
+      
+      if (!yearGroup) {
+          yearGroup = { year: year, items: [] };
+          activityData.timeline.unshift(yearGroup);
+          // sort descending by year
+          activityData.timeline.sort((a,b) => parseInt(b.year) - parseInt(a.year));
+      }
+      yearGroup.items.unshift(modifiedItem);
+
+      const success = await saveAndDeploy('activity.json', activityData);
+      if (success) e.target.reset();
+      else activityData = backup;
+      renderActivityList();
+    } finally {
+      submitBtn.innerText = "Add Activity";
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('add-experience-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = "⏳ Saving...";
+    submitBtn.disabled = true;
+
+    try {
+      const modifiedItem = {
+        id: currentEditId ? currentEditId : 'exp-' + Math.random().toString(36).substr(2, 6),
+        company: document.getElementById('exp-company').value,
+        role: document.getElementById('exp-role').value,
+        period: document.getElementById('exp-period').value,
+        responsibilities: document.getElementById('exp-responsibilities').value.split('\n').map(s=>s.trim()).filter(s=>s)
+      };
+
+      const backup = JSON.parse(JSON.stringify(aboutData));
+      if (currentEditId) {
+         aboutData.experience = aboutData.experience.filter(i => i.id !== currentEditId);
+         currentEditId = null; 
+      }
+      aboutData.experience.push(modifiedItem);
+
+      const success = await saveAndDeploy('about.json', aboutData);
+      if (success) e.target.reset();
+      else aboutData = backup;
+      renderAboutList();
+    } finally {
+      submitBtn.innerText = "Add Experience";
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('add-contact-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerText = "⏳ Saving...";
+    submitBtn.disabled = true;
+
+    try {
+      const modifiedItem = {
+        id: currentEditId ? currentEditId : 'link-' + Math.random().toString(36).substr(2, 6),
+        label: document.getElementById('contact-label').value,
+        icon: document.getElementById('contact-icon').value,
+        value: document.getElementById('contact-value').value,
+        url: document.getElementById('contact-url').value,
+        type: document.getElementById('contact-type').value
+      };
+
+      const backup = JSON.parse(JSON.stringify(contactData));
+      if (currentEditId) {
+         contactData.links = contactData.links.filter(i => i.id !== currentEditId);
+         currentEditId = null; 
+      }
+      contactData.links.push(modifiedItem);
+
+      const success = await saveAndDeploy('contact.json', contactData);
+      if (success) e.target.reset();
+      else contactData = backup;
+      renderContactList();
+    } finally {
+      submitBtn.innerText = "Add Contact Link";
+      submitBtn.disabled = false;
+    }
+  });
+  // ==============================================================================
   document.getElementById('edit-hero-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitBtn = e.target.querySelector('button[type="submit"]');
