@@ -175,7 +175,7 @@ async function renderHomePage() {
         <div class="card">
           <span class="card-label">${escapeHTML(p.label || p.labelType || '')}</span>
           <h3>${escapeHTML(p.title)}</h3>
-          <p>${escapeHTML(p.description)}</p>
+          <div class="quill-content" style="margin-bottom: 1rem;">${p.description || ''}</div>
           ${p.link ? `<a href="${escapeHTML(p.link)}" class="card-link">${escapeHTML(p.linkText || 'View →')}</a>` : ''}
         </div>
       `).join('');
@@ -235,7 +235,7 @@ async function renderProjectsPage() {
           <div class="card">
             <span class="card-label ${escapeHTML(item.labelType)}">${escapeHTML(item.label)}</span>
             <h3>${escapeHTML(item.title)}</h3>
-            <p>${escapeHTML(item.description)}</p>
+            <div class="quill-content" style="margin-bottom: 1rem;">${item.description || ''}</div>
             ${item.link ? `<a href="${escapeHTML(item.link)}" class="card-link">${escapeHTML(item.linkText)}</a>` : ''}
           </div>
         `).join('')}
@@ -273,7 +273,7 @@ async function renderWriteupsPage() {
             ${item.label ? `<span class="card-label ${escapeHTML(item.labelType)}">${escapeHTML(item.label)}</span>` : ''}
             <h3>${escapeHTML(item.title)}</h3>
             ${item.date ? `<p class="writeup-date">${escapeHTML(item.date)}</p>` : ''}
-            <p>${escapeHTML(item.description)}</p>
+            <div class="quill-content" style="margin-bottom: 1rem;">${item.description || ''}</div>
             ${item.severity ? `
               <div style="margin-bottom: 0.75rem;">
                 <span class="severity ${escapeHTML(item.severityClass)}">${escapeHTML(item.severity)} Severity</span>
