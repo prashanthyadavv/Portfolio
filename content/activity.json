@@ -1,15 +1,14 @@
 {
   "pageTitle": "Activity",
   "pageDescription": "Professional timeline and milestones.",
-
   "timeline": [
     {
       "year": "2026",
       "items": [
         {
           "id": "uptoskills-intern",
-          "date": "Feb 2026 — Present",
-          "event": "Cyber Security Intern — UptoSkills (Ongoing)",
+          "date": "Jan 2026 Offer Letter",
+          "event": "Cyber Security Intern — UptoSkills (Offer letter)",
           "description": "Manual web application testing and structured vulnerability assessments. Focus areas: authentication testing, rate-limit analysis, input validation, and formal reporting."
         },
         {
