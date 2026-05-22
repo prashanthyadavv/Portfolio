@@ -6,6 +6,12 @@
       "year": "2026",
       "items": [
         {
+          "id": "act-02tmlg",
+          "date": "Apr 2026",
+          "event": "Completed Ethical Hacking Internship — Uptoskills",
+          "description": "Completed a Cyber Security Internship at UptoSkills, gaining hands-on experience in cybersecurity, vulnerability assessment, and network security while improving analytical and problem-solving skills."
+        },
+        {
           "id": "hacksavvy-26",
           "date": "Feb 2026",
           "event": "HackSavvy'26 — 24hr Hackathon, MGIT",
