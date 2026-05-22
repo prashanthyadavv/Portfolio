@@ -4,32 +4,51 @@
     "lastName": "Pittakala",
     "subtitle": "Security Researcher & Security Intern @ UptoSkills",
     "description": "Passionate about uncovering vulnerabilities and building secure systems. Currently focused on advanced penetration testing and automated malware analysis.",
-    "ctaPrimary": { "text": "View Findings", "link": "#projects" },
-    "ctaSecondary": { "text": "Secure Contact", "link": "contact.html" }
+    "ctaPrimary": {
+      "text": "View Findings",
+      "link": "#projects"
+    },
+    "ctaSecondary": {
+      "text": "Secure Contact",
+      "link": "contact.html"
+    }
   },
-
   "about": {
     "paragraphs": [
       "I am a dedicated cybersecurity professional with a strong foundation in manual web application testing and vulnerability assessment. My approach combines rigorous analytical thinking with hands-on technical expertise to secure digital assets and report critical security flaws.",
       "Through my work at Cybrito, I aim to contribute to the security community by developing open-source security utilities and publishing technical writeups on real-world vulnerabilities."
     ]
   },
-
   "skills": [
     {
       "category": "Offensive Security",
-      "tags": ["Burp Suite", "Metasploit", "Nmap", "SQLMap", "OWASP ZAP"]
+      "tags": [
+        "Burp Suite",
+        "Metasploit",
+        "Nmap",
+        "SQLMap",
+        "OWASP ZAP"
+      ]
     },
     {
       "category": "Security Analysis",
-      "tags": ["Wireshark", "Cuckoo Sandbox", "Linux Forensics", "Static Analysis"]
+      "tags": [
+        "Wireshark",
+        "Cuckoo Sandbox",
+        "Linux Forensics",
+        "Static Analysis"
+      ]
     },
     {
       "category": "Development",
-      "tags": ["Python", "Bash Scripts", "Node.js", "JavaScript"]
+      "tags": [
+        "Python",
+        "Bash Scripts",
+        "Node.js",
+        "JavaScript"
+      ]
     }
   ],
-
   "featuredProjects": [
     {
       "id": "brute-force-home",
@@ -72,7 +91,6 @@
       "linkText": "Detailed Report →"
     }
   ],
-
   "certifications": [
     {
       "id": "ethical-hacking-essentials",
@@ -97,6 +115,12 @@
       "title": "Cybersecurity and Ethical Hacking",
       "issuer": "Issued by ApexPlanet",
       "image": "images/certs/cybersecurity-apexplanet.jpeg"
+    },
+    {
+      "id": "certificate-of-internship-completion-8kvp478949",
+      "title": "Certificate of Internship Completion",
+      "issuer": "Uptoskills",
+      "image": ""
     }
   ]
 }
