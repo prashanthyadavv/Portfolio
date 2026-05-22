@@ -12,12 +12,6 @@
           "description": "Manual web application testing and structured vulnerability assessments. Focus areas: authentication testing, rate-limit analysis, input validation, and formal reporting."
         },
         {
-          "id": "hacksavvy-26",
-          "date": "Feb 2026",
-          "event": "HackSavvy'26 — 24hr Hackathon, MGIT",
-          "description": "Developed a behavior-based malware detection framework using isolated VM execution and telemetry-driven analysis. Implemented execution lineage attribution and rule-based risk classification pipeline."
-        },
-        {
           "id": "medium-article",
           "date": "Jan 2026",
           "event": "Published Technical Article (Medium)",
